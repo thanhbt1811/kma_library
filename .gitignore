@@ -2,11 +2,28 @@
 
 # Files and directories created by pub
 .dart_tool/
+.fvm/
+.idea/
+.vscode/
 .packages
+.history
 build/
 # If you're building an application, you may want to check-in your pubspec.lock
-pubspec.lock
-
+**/doc/api/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+.gradle/
+*.lock
+*.iml
+*.ipr
+*.iws
+*.class
+*.log
+*.pyc
+*.swp
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
 doc/api/
@@ -19,3 +36,46 @@ doc/api/
 *.js_
 *.js.deps
 *.js.map
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS/XCode related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Exceptions to above rules.
+!**/ios/**/default.mode1v3
+!**/ios/**/default.mode2v3
+!**/ios/**/default.pbxuser
+!**/ios/**/default.perspectivev3
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
