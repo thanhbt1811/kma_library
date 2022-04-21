@@ -5,7 +5,7 @@ class AppColors {
   static const Color second = Color(0xFF8DB11B);
   static Color text = black;
   static Color hintText = grey;
-  static Color? background = grey50;
+  static Color? background = AppColors.white;
 
   static Color? blue = Colors.blue;
   static Color? blue800 = Colors.blue[800];
@@ -38,4 +38,9 @@ class AppColors {
   static Color black = Colors.black;
   static Color? black45 = Colors.black45;
   static Color transparent = Colors.transparent;
+  static const Color appbarColor = Color(0xff006BB6);
+  static const Color disableColor = Color(0xffCDCDCD);
+  static const Color gallerySolid = Color(0xffEFEFEF);
+  static const Color galleryApprox = Color(0xffEAEAEA);
+  static const Color radicalRedApprox = Color(0xffFF2D55);
 }

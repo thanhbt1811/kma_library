@@ -75,17 +75,16 @@ class AppSnackBarWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: AppDimens.space_16),
       decoration: BoxDecoration(
-        borderRadius:
-            const BorderRadius.all(Radius.circular(AppDimens.radius_12)),
-        color: backgroundColor,
-        boxShadow: [
-          BoxShadow(
-            color: backgroundColor!,
-            blurRadius: 6,
-            offset: Offset(0,3),
-          )
-        ]
-      ),
+          borderRadius:
+              const BorderRadius.all(Radius.circular(AppDimens.radius_12)),
+          color: backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              color: backgroundColor!,
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            )
+          ]),
       padding: EdgeInsets.all(AppDimens.space_12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
-import 'package:getx_base_code/common/constants/app_routes.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
 
@@ -49,7 +48,7 @@ class SplashScreen extends GetView<SplashController> {
                   .copyWith(bottom: AppDimens.height_112),
               child: AppButton(
                 title: 'ĐĂNG NHẬP',
-                onPressed: () => Get.offAndToNamed(AppRoutes.main),
+                onPressed: () => Get.offAndToNamed(AppRoutes.login),
               ),
             ),
           )

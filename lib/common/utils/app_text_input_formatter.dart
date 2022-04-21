@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:intl/intl.dart';
 
-import 'app_utils.dart';
-
 
 class PhoneNumberInputFormatter extends TextInputFormatter {
   @override

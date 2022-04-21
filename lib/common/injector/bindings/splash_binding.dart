@@ -5,7 +5,8 @@ import 'package:getx_base_code/presentation/journey/splash/splash_controller.dar
 class SplashBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(getIt<SplashController>());
+    Get.put(
+      getIt<SplashController>(),
+    );
   }
-
 }
