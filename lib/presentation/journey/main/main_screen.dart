@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
-import 'package:getx_base_code/presentation/journey/home/home_page.dart';
+import 'package:getx_base_code/presentation/journey/cart/cart_screen.dart';
+import 'package:getx_base_code/presentation/journey/favorite/favorite_screen.dart';
+import 'package:getx_base_code/presentation/journey/home/home_screen.dart';
+import 'package:getx_base_code/presentation/journey/notification/notification_screen.dart';
+import 'package:getx_base_code/presentation/journey/profile/profile_screen.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
 
@@ -14,67 +18,73 @@ class MainScreen extends GetView<MainController> {
     BuildContext context, {
     Function()? onPressed,
     String? path,
-    String? title,
     bool isSelected = false,
   }) {
     return Expanded(
       child: AppTouchable(
-          onPressed: onPressed,
-          outlinedBorder: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-          padding: EdgeInsets.only(
-            top: AppDimens.space_12,
-            bottom: MediaQuery.of(context).padding.bottom + 12.sp,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppImageWidget(
-                path: path!,
-                height: AppDimens.space_20,
-                color: isSelected ? AppColors.primary : AppColors.grey,
-              ),
-              SizedBox(
-                height: AppDimens.height_8,
-              ),
-              Text(
-                title!,
-                style: ThemeText.caption.copyWith(
-                      color: isSelected ? AppColors.primary : AppColors.grey,
-                    ),
-              )
-            ],
-          )),
+        onPressed: onPressed,
+        outlinedBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+        ),
+        padding: EdgeInsets.only(
+          top: AppDimens.space_12,
+          bottom: MediaQuery.of(context).padding.bottom + 12.sp,
+        ),
+        child: AppImageWidget(
+          path: path!,
+          height: AppDimens.space_20,
+          color: isSelected ? AppColors.second : AppColors.disableColor,
+        ),
+      ),
     );
   }
 
   Widget _buildBottomNavigationBar(BuildContext context) {
     return Container(
-      color: AppColors.white,
+      decoration: BoxDecoration(
+          color: AppColors.gallerySolid,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(AppDimens.radius_16),
+            topRight: Radius.circular(AppDimens.radius_16),
+          ),
+          border: Border.all(color: AppColors.galleryApprox, width: 3)),
+      padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16).copyWith(
+        top: AppDimens.height_16,
+        bottom: AppDimens.height_24,
+      ),
       child: Obx(
         () => Row(
           children: [
-            _buildBottomNavigationItemWidget(context,
-                title: StringConstants.home,
-                path: ImageConstants.icHome,
-                isSelected: controller.rxCurrentNavIndex.value == 0,
-                onPressed: () => controller.onChangedNav(0)),
-            _buildBottomNavigationItemWidget(context,
-                title: StringConstants.finance,
-                path: ImageConstants.icNavFinance,
-                isSelected: controller.rxCurrentNavIndex.value == 1,
-                onPressed: () => controller.onChangedNav(1)),
-            _buildBottomNavigationItemWidget(context,
-                title: StringConstants.cart,
-                path: ImageConstants.icCart,
-                isSelected: controller.rxCurrentNavIndex.value == 2,
-                onPressed: () => controller.onChangedNav(2)),
-            _buildBottomNavigationItemWidget(context,
-                title: StringConstants.love,
-                path: ImageConstants.icNavLove,
-                isSelected: controller.rxCurrentNavIndex.value == 3,
-                onPressed: () => controller.onChangedNav(3)),
+            _buildBottomNavigationItemWidget(
+              context,
+              path: ImageConstants.icHome,
+              isSelected: controller.rxCurrentNavIndex.value == 0,
+              onPressed: () => controller.onChangedNav(0),
+            ),
+            _buildBottomNavigationItemWidget(
+              context,
+              path: ImageConstants.icBell,
+              isSelected: controller.rxCurrentNavIndex.value == 1,
+              onPressed: () => controller.onChangedNav(1),
+            ),
+            _buildBottomNavigationItemWidget(
+              context,
+              path: ImageConstants.icCart,
+              isSelected: controller.rxCurrentNavIndex.value == 2,
+              onPressed: () => controller.onChangedNav(2),
+            ),
+            _buildBottomNavigationItemWidget(
+              context,
+              path: ImageConstants.icStar,
+              isSelected: controller.rxCurrentNavIndex.value == 3,
+              onPressed: () => controller.onChangedNav(3),
+            ),
+            _buildBottomNavigationItemWidget(
+              context,
+              path: ImageConstants.icNavAccount,
+              isSelected: controller.rxCurrentNavIndex.value == 4,
+              onPressed: () => controller.onChangedNav(4),
+            ),
           ],
         ),
       ),
@@ -84,16 +94,11 @@ class MainScreen extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> pages = [
-      const HomePage(),
-      Center(
-        child: Text(StringConstants.workflow.tr),
-      ),
-      Center(
-        child: Text(StringConstants.love.tr),
-      ),
-      Center(
-        child: Text(StringConstants.account.tr),
-      ),
+      const HomeScreen(),
+      const NotificationScreen(),
+      const CartScreen(),
+      const FavoriteScreen(),
+      const ProfileScreen()
     ];
 
     return Scaffold(

@@ -11,6 +11,9 @@ class ImageConstants {
   static const String pimiLogo = '$pngPath/pimi_logo.png';
   static const String pimiLove = '$pngPath/pimi_love.png';
   static const String kmaLogo = '$pngPath/kma_logo.png';
+  static const String icUser = '$pngPath/ic_user.png';
+  static const String icLock = '$pngPath/ic_lock.png';
+  static const String icMail = '$pngPath/ic_mail.png';
 
   /// SVG
   static const String icError = '$svgPath/ic_error.svg';
@@ -31,4 +34,10 @@ class ImageConstants {
   static const String icHome = '$svgPath/ic_home.svg';
   static const String icCart = '$svgPath/ic_cart.svg';
   static const String icStar = '$svgPath/ic_star.svg';
+  static const String icArrowLeft = '$svgPath/ic_arrow_left.svg';
+  static const String icDefaultAvatar = '$svgPath/ic_default_avatar.svg';
+  static const String icArrowRight = '$svgPath/ic_arrow_right.svg';
+  static const String icBell = '$svgPath/ic_bell.svg';
+  static const String icSearch = '$svgPath/ic_search.svg';
+  static const String icRecycleBin = '$svgPath/ic_recycle_bin.svg';
 }

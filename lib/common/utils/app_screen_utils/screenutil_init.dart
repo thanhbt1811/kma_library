@@ -2,7 +2,7 @@ part of flutter_screenutil;
 
 class ScreenUtilInit extends StatelessWidget {
   /// A helper widget that initializes [ScreenUtil]
-  ScreenUtilInit({
+  const ScreenUtilInit({
     required this.builder,
     this.designSize = ScreenUtil.defaultSize,
     this.splitScreenMode = false,
@@ -22,9 +22,9 @@ class ScreenUtilInit extends StatelessWidget {
     return LayoutBuilder(builder: (_, BoxConstraints constraints) {
       if (constraints.maxWidth != 0) {
         final Orientation orientation =
-        constraints.maxWidth > constraints.maxHeight
-            ? Orientation.landscape
-            : Orientation.portrait;
+            constraints.maxWidth > constraints.maxHeight
+                ? Orientation.landscape
+                : Orientation.portrait;
         ScreenUtil.init(constraints,
             context: _,
             orientation: orientation,

@@ -82,20 +82,20 @@ class FlashController<T> {
   bool _removedHistoryEntry = false;
 
   FlashController(
-      this.context, {
-        required this.builder,
-        this.duration,
-        this.transitionDuration = const Duration(milliseconds: 500),
-        this.persistent = true,
-        this.onWillPop,
-      }) : route = ModalRoute.of(context) {
+    this.context, {
+    required this.builder,
+    this.duration,
+    this.transitionDuration = const Duration(milliseconds: 500),
+    this.persistent = true,
+    this.onWillPop,
+  }) : route = ModalRoute.of(context) {
     final rootOverlay = Navigator.of(context, rootNavigator: true).overlay;
     if (persistent) {
       overlay = rootOverlay;
     } else {
       overlay = Overlay.of(context);
       assert(overlay != rootOverlay,
-      '''overlay can't be the root overlay when persistent is false''');
+          '''overlay can't be the root overlay when persistent is false''');
     }
     assert(overlay != null);
     _controller = createAnimationController()
@@ -115,7 +115,7 @@ class FlashController<T> {
 
   Future<T?> show() {
     assert(!_transitionCompleter.isCompleted,
-    'Cannot show a $runtimeType after disposing it.');
+        'Cannot show a $runtimeType after disposing it.');
 
     if (onWillPop != null) route?.addScopedWillPopCallback(onWillPop!);
     overlay!.insertAll(_overlayEntries = _createOverlayEntries());
@@ -131,7 +131,7 @@ class FlashController<T> {
   /// one.
   AnimationController createAnimationController() {
     assert(!_transitionCompleter.isCompleted,
-    'Cannot reuse a $runtimeType after disposing it.');
+        'Cannot reuse a $runtimeType after disposing it.');
     final duration = transitionDuration;
     return AnimationController(
       duration: duration,
@@ -150,10 +150,10 @@ class FlashController<T> {
         if (_overlayEntries.isNotEmpty) _overlayEntries.first.opaque = false;
         break;
       case AnimationStatus.dismissed:
-      // We might still be an active route if a subclass is controlling the
-      // the transition and hits the dismissed status. For example, the iOS
-      // back gesture drives this animation to the dismissed status before
-      // removing the route and disposing it.
+        // We might still be an active route if a subclass is controlling the
+        // the transition and hits the dismissed status. For example, the iOS
+        // back gesture drives this animation to the dismissed status before
+        // removing the route and disposing it.
         dispose();
         break;
     }
@@ -178,7 +178,7 @@ class FlashController<T> {
     if (!persistent) {
       _historyEntry = LocalHistoryEntry(onRemove: () {
         assert(!_transitionCompleter.isCompleted,
-        'Cannot reuse a $runtimeType after disposing it.');
+            'Cannot reuse a $runtimeType after disposing it.');
         _removedHistoryEntry = true;
         if (!_dismissed) {
           if (onWillPop != null) route?.removeScopedWillPopCallback(onWillPop!);
@@ -226,7 +226,7 @@ class FlashController<T> {
 
   Future<void> dismiss([T? result]) {
     assert(!_transitionCompleter.isCompleted,
-    'Cannot reuse a $runtimeType after disposing it.');
+        'Cannot reuse a $runtimeType after disposing it.');
     _dismissed = true;
     _result = result;
     if (onWillPop != null) route?.removeScopedWillPopCallback(onWillPop!);
@@ -238,10 +238,12 @@ class FlashController<T> {
   @protected
   void dispose() {
     assert(!_transitionCompleter.isCompleted,
-    'Cannot dispose a $runtimeType twice.');
+        'Cannot dispose a $runtimeType twice.');
     dismissInternal();
 
-    for (OverlayEntry entry in _overlayEntries) entry.remove();
+    for (OverlayEntry entry in _overlayEntries) {
+      entry.remove();
+    }
     _overlayEntries.clear();
     _controller.dispose();
     _transitionCompleter.complete(_result);
@@ -284,14 +286,15 @@ class Flash<T> extends StatefulWidget {
     this.barrierDismissible = true,
     this.useSafeArea = true,
   })  : assert(() {
-    if (alignment == null)
-      return behavior != null && position != null;
-    else
-      return behavior == null && position == null;
-  }()),
+          if (alignment == null) {
+            return behavior != null && position != null;
+          } else {
+            return behavior == null && position == null;
+          }
+        }()),
         super(key: key);
 
-  Flash.bar({
+  const Flash.bar({
     Key? key,
     required this.controller,
     required this.child,
@@ -322,7 +325,7 @@ class Flash<T> extends StatefulWidget {
         assert(position != null),
         super(key: key);
 
-  Flash.dialog({
+  const Flash.dialog({
     Key? key,
     required this.controller,
     required this.child,
@@ -467,7 +470,7 @@ class _FlashState<T> extends State<Flash<T>> {
 
   /// The node this scope will use for its root [FocusScope] widget.
   final FocusScopeNode focusScopeNode =
-  FocusScopeNode(debugLabel: '$_FlashState Focus Scope');
+      FocusScopeNode(debugLabel: '$_FlashState Focus Scope');
 
   double get _childWidth {
     final box = _childKey.currentContext?.findRenderObject() as RenderBox;
@@ -529,7 +532,7 @@ class _FlashState<T> extends State<Flash<T>> {
 
   bool get _dismissUnderway =>
       animationController.status == AnimationStatus.reverse ||
-          animationController.status == AnimationStatus.dismissed;
+      animationController.status == AnimationStatus.dismissed;
 
   bool get _shouldIgnoreFocusRequest {
     return animationController.status == AnimationStatus.reverse ||
@@ -562,7 +565,7 @@ class _FlashState<T> extends State<Flash<T>> {
         borderRadius: widget.borderRadius,
         border: widget.borderColor != null
             ? Border.all(
-            color: widget.borderColor!, width: widget.borderWidth ?? 1.0)
+                color: widget.borderColor!, width: widget.borderWidth ?? 1.0)
             : null,
       ),
       child: child,
@@ -601,11 +604,11 @@ class _FlashState<T> extends State<Flash<T>> {
     child = GestureDetector(
       behavior: HitTestBehavior.opaque,
       onHorizontalDragUpdate:
-      enableHorizontalDrag ? _handleHorizontalDragUpdate : null,
+          enableHorizontalDrag ? _handleHorizontalDragUpdate : null,
       onHorizontalDragEnd:
-      enableHorizontalDrag ? _handleHorizontalDragEnd : null,
+          enableHorizontalDrag ? _handleHorizontalDragEnd : null,
       onVerticalDragUpdate:
-      enableVerticalDrag ? _handleVerticalDragUpdate : null,
+          enableVerticalDrag ? _handleVerticalDragUpdate : null,
       onVerticalDragEnd: enableVerticalDrag ? _handleVerticalDragEnd : null,
       child: child,
       excludeFromSemantics: true,
@@ -646,7 +649,7 @@ class _FlashState<T> extends State<Flash<T>> {
         position: _moveAnimation,
         child: FadeTransition(
           opacity:
-          animationController.drive(Tween<double>(begin: 0.0, end: 1.0)),
+              animationController.drive(Tween<double>(begin: 0.0, end: 1.0)),
           child: child,
         ),
       );
@@ -669,7 +672,7 @@ class _FlashState<T> extends State<Flash<T>> {
                 final blur = (widget.barrierBlur ?? 0.0) * value;
                 final color = widget.barrierColor ?? Colors.transparent;
                 Widget child = Container(
-                  constraints: BoxConstraints.expand(),
+                  constraints: const BoxConstraints.expand(),
                   color: color.withOpacity(color.opacity * value),
                 );
                 // https://github.com/flutter/flutter/issues/77258
@@ -935,7 +938,7 @@ enum HorizontalDismissDirection {
 enum _FlingGestureKind { none, forward, reverse }
 
 class FlashBar extends StatefulWidget {
-  FlashBar({
+  const FlashBar({
     Key? key,
     this.padding = const EdgeInsets.all(16.0),
     this.title,
@@ -1014,7 +1017,7 @@ class _FlashBarState extends State<FlashBar>
   final double _initialOpacity = 1.0;
   final double _finalOpacity = 0.4;
 
-  final Duration _pulseAnimationDuration = Duration(seconds: 1);
+  final Duration _pulseAnimationDuration = const Duration(seconds: 1);
 
   late bool _isTitlePresent;
   late bool _isActionsPresent;
