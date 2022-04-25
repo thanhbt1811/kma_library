@@ -92,7 +92,6 @@ class ApiClient {
     /// Config header truyền vào
     /// Tùy vào header của API để truyền vào
     Map<String, dynamic> headerMap = {};
-    // Map<String, dynamic> headerMap = {
     //   "From": deviceId,
     //   if (basicAuthen != null) "Authorization": 'Basic $basicAuthen',
     //   "Accept-Language": getX.Get.locale.toString() == 'en_US' ? 'en' : 'vi',
@@ -104,7 +103,9 @@ class ApiClient {
     try {
       var strMethod = _getMethod(method);
       response = await _dio.request(path ?? '',
-          data: formData != null ? FormData.fromMap(formData) : data ?? jsonEncode({}),
+          data: formData != null
+              ? FormData.fromMap(formData)
+              : data ?? jsonEncode({}),
           options: Options(
               method: strMethod,
               sendTimeout: 10000,

@@ -1,14 +1,14 @@
 import 'package:getx_base_code/common/common_export.dart';
 
 class LocalRepository {
-  Future<void> setPhone(String phone) async {
+  Future<void> setToken(String token) async {
     await SharePreferencesConstants.prefs
-        .setString(SharePreferencesConstants.phone, phone);
+        .setString(SharePreferencesConstants.token, token);
   }
 
-  String getPhone() {
+  String getToken() {
     return SharePreferencesConstants.prefs
-        .getString(SharePreferencesConstants.phone) ??
+            .getString(SharePreferencesConstants.token) ??
         '';
   }
 }

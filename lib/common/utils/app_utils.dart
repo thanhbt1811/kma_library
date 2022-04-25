@@ -1,7 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/domain/models/base_response.dart';
+import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -23,7 +24,8 @@ String formatCurrency(dynamic number) {
   } else {
     numberConvert = number;
   }
-  return NumberFormat("#,###", AppConfig.defaultLocate).format(numberConvert ?? 0);
+  return NumberFormat("#,###", AppConfig.defaultLocate)
+      .format(numberConvert ?? 0);
 }
 
 String formatPhoneNumber(String phoneNumber) {
@@ -32,7 +34,11 @@ String formatPhoneNumber(String phoneNumber) {
   filterText = filterText.replaceAll(' ', '');
   if (filterText.length < 2) return filterText;
   final firstChars = filterText.substring(0, 2);
-  if (firstChars == '09' || firstChars == '08' || firstChars == '07' || firstChars == '03' || firstChars == '05') {
+  if (firstChars == '09' ||
+      firstChars == '08' ||
+      firstChars == '07' ||
+      firstChars == '03' ||
+      firstChars == '05') {
     if (filterText.length > 3) {
       filterText = '${filterText.substring(0, 3)} ${filterText.substring(3)}';
     }
@@ -47,7 +53,8 @@ bool isNullEmpty(Object? o) => o == null || "" == o || o == "null";
 
 bool isNullEmptyOrFalse(Object? o) => o == null || false == o || "" == o;
 
-bool isNullEmptyFalseOrZero(Object? o) => o == null || false == o || 0 == o || "" == o || "0" == o;
+bool isNullEmptyFalseOrZero(Object? o) =>
+    o == null || false == o || 0 == o || "" == o || "0" == o;
 
 bool isNullEmptyList<T>(List<T>? t) => t == null || [] == t || t.isEmpty;
 
@@ -64,4 +71,23 @@ bool isNumeric(dynamic s) {
 Future<bool> checkPermission(Permission permission) async {
   final status = await permission.request();
   return status.isGranted;
+}
+
+Future<BaseResponse> requestApi(
+  Function() request,
+  BuildContext context,
+) async {
+  final BaseResponse baseResponse = await request();
+  if (!(baseResponse.result ?? false)) {
+    if (baseResponse.code == ErrorEnum.unauthorized.code &&
+        baseResponse.errorCode == ErrorEnum.unauthorized.stringCode) {
+      showTopSnackBar(context,
+          message: ErrorEnum.unauthorized.message, type: SnackBarType.error);
+    } else {
+      showTopSnackBar(context,
+          message: baseResponse.message ?? StringConstants.defaultErrorMessage,
+          type: SnackBarType.error);
+    }
+  }
+  return baseResponse;
 }
