@@ -1,5 +1,9 @@
 enum LoadedType { start, finish }
 
-enum SnackBarType {done, error, warning}
+enum SnackBarType { done, error, warning }
 
-enum NetworkMethod {get, post, delete, path, put}
+enum NetworkMethod { get, post, delete, path, put }
+
+enum ErrorEnum {
+  unauthorized,
+}

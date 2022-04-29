@@ -1,3 +1,3 @@
 class NetworkConfig {
-  static String baseUrl = 'https://api.covid19api.com/';
+  static String baseUrl = 'http://107.20.2.255/api/';
 }

@@ -4,8 +4,8 @@ import 'package:getx_base_code/common/injector/bindings/auth_binding.dart';
 import 'package:getx_base_code/common/injector/bindings/favorite_binding.dart';
 import 'package:getx_base_code/common/injector/bindings/profile_binding.dart';
 import 'package:getx_base_code/data/local_repository.dart';
-import 'package:getx_base_code/data/remote/weather_repository.dart';
-import 'package:getx_base_code/domain/usecases/weather_usecase.dart';
+import 'package:getx_base_code/data/remote/authentication_repository.dart';
+import 'package:getx_base_code/domain/usecases/authentication_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_password_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/login/login_controller.dart';
@@ -57,9 +57,7 @@ void configLocator() {
     () => MainController(),
   );
   getIt.registerFactory<HomeController>(
-    () => HomeController(
-      weatherUc: getIt<WeatherUseCase>(),
-    ),
+    () => HomeController(),
   );
   getIt.registerFactory<NotificationController>(
     () => NotificationController(),
@@ -74,7 +72,9 @@ void configLocator() {
     () => ProfileController(),
   );
   getIt.registerFactory(
-    () => LoginController(),
+    () => LoginController(
+      getIt<AuthenticationUsecase>(),
+    ),
   );
   getIt.registerFactory(
     () => ForgotPasswordController(),
@@ -90,10 +90,25 @@ void configLocator() {
   );
 
   /// UseCases
-  getIt.registerFactory<WeatherUseCase>(
-      () => WeatherUseCase(weatherRepo: getIt<WeatherRepository>()));
+  getIt.registerFactory(
+    () => AuthenticationUsecase(
+      getIt<AuthenticationRepository>(),
+      getIt<LocalRepository>(),
+    ),
+  );
 
   /// Repositories
-  getIt.registerFactory<WeatherRepository>(() => WeatherRepository());
-  getIt.registerFactory<LocalRepository>(() => LocalRepository());
+  getIt.registerFactory<AuthenticationRepository>(
+    () => AuthenticationRepository(
+      getIt<ApiClient>(),
+    ),
+  );
+  getIt.registerFactory<LocalRepository>(
+    () => LocalRepository(),
+  );
+
+  ///Common
+  getIt.registerSingleton(
+    ApiClient(),
+  );
 }

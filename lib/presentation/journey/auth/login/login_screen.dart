@@ -34,10 +34,11 @@ class LoginScreen extends GetView<LoginController> {
                 Column(
                   children: [
                     AppTextFieldWidget(
-                      hintText: 'Tên đăng nhập',
-                      controller: controller.usernameCtl,
+                      hintText: 'Mã sinh viên',
+                      controller: controller.studentId,
                       shadowColor: AppColors.black.withOpacity(0.12),
                       elevation: 6.0,
+                      onChanged: (_) => controller.setRxActiveBtn(),
                       prefixIcon: AppImageWidget(
                         path: ImageConstants.icUser,
                         width: AppDimens.height_24,
@@ -51,6 +52,7 @@ class LoginScreen extends GetView<LoginController> {
                       controller: controller.passwordCtl,
                       shadowColor: AppColors.black.withOpacity(0.12),
                       elevation: 6.0,
+                      onChanged: (_) => controller.setRxActiveBtn(),
                       prefixIcon: AppImageWidget(
                         path: ImageConstants.icLock,
                         width: AppDimens.height_24,
@@ -74,9 +76,14 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                   ],
                 ),
-                AppButton(
-                  title: 'ĐĂNG NHẬP',
-                  onPressed: () => Get.toNamed(AppRoutes.main),
+                Obx(
+                  () => AppButton(
+                    title: 'ĐĂNG NHẬP',
+                    loaded: controller.rxLoadedType.value,
+                    onPressed: controller.rxActiveBtn.value
+                        ? () => controller.login()
+                        : null,
+                  ),
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.04,
