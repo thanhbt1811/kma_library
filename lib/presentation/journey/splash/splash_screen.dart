@@ -11,6 +11,7 @@ class SplashScreen extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.context = context;
     return Material(
       color: AppColors.white,
       child: Stack(
@@ -46,9 +47,12 @@ class SplashScreen extends GetView<SplashController> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: AppDimens.space_16)
                   .copyWith(bottom: AppDimens.height_112),
-              child: AppButton(
-                title: 'ĐĂNG NHẬP',
-                onPressed: () => Get.offAndToNamed(AppRoutes.login),
+              child: Obx(
+                () => AppButton(
+                  title: 'ĐĂNG NHẬP',
+                  loaded: controller.rxLoadedType.value,
+                  onPressed: () => controller.initLogin(),
+                ),
               ),
             ),
           )

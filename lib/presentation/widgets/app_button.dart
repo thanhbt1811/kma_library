@@ -3,8 +3,6 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_loading_widget.dart';
 
-import 'app_image_widget.dart';
-
 class AppButton extends StatelessWidget {
   final String title;
   final LoadedType? loaded;

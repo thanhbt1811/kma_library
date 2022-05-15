@@ -9,6 +9,12 @@ class AuthBinding extends Bindings {
     Get.put(
       getIt<LoginController>(),
     );
+  }
+}
+
+class ForgotPasswordBinding extends Bindings {
+  @override
+  void dependencies() {
     Get.put(
       getIt<ForgotPasswordController>(),
     );

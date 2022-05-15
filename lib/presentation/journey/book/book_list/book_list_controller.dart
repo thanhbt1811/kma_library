@@ -1,23 +1,31 @@
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
-import 'package:getx_base_code/domain/models/cateogory_model.dart';
-import 'package:getx_base_code/domain/usecases/category_usecase.dart';
+import 'package:getx_base_code/domain/models/book_model.dart';
+import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class HomeController extends CoreController {
-  final CategoryUsecase _categoryUsecase;
+class BookListController extends CoreController {
+  final BookUsecase _bookUsecase;
   final RefreshController refreshController = RefreshController();
-  RxList<CategoryModel> categories = <CategoryModel>[].obs;
+
+  BookListController(this._bookUsecase);
+
+  RxList<BookModel> rxBooks = <BookModel>[].obs;
   final int _pageSize = 10;
   int _page = 0;
   RxBool hasLoadMore = true.obs;
+  late String _categoryId;
 
-  HomeController(this._categoryUsecase);
+  @override
+  void onInit() {
+    _categoryId = Get.arguments[ArgumentConstants.categoryId];
+    super.onInit();
+  }
 
   @override
   void onReady() {
-    _getCategories();
+    _getBook();
     super.onReady();
   }
 
@@ -27,22 +35,23 @@ class HomeController extends CoreController {
     super.onClose();
   }
 
-  Future<void> _getCategories({bool isLoadmore = false}) async {
+  Future<void> _getBook({bool isLoadmore = false}) async {
     if (!isLoadmore) {
-      rxLoadedType.value = LoadedType.start;
+      startLoading();
     }
-    final res = await _categoryUsecase.getCategories(context, _page, _pageSize);
+    final res = await _bookUsecase.getBooksWithCategory(
+        context, _categoryId, _page, _pageSize);
     if (!isLoadmore) {
-      rxLoadedType.value = LoadedType.finish;
+      finishLoading();
     } else {
       refreshController.refreshCompleted();
     }
 
     if (res.isNotEmpty) {
       if (isLoadmore) {
-        categories.addAll(res);
+        rxBooks.addAll(res);
       } else {
-        categories.value = res;
+        rxBooks.value = res;
       }
       if (res.length <= _pageSize) {
         hasLoadMore.value = false;
@@ -54,7 +63,7 @@ class HomeController extends CoreController {
 
   Future<void> onLoadmore() async {
     _page += 1;
-    await _getCategories(
+    await _getBook(
       isLoadmore: true,
     );
     refreshController.loadComplete();
@@ -62,8 +71,8 @@ class HomeController extends CoreController {
 
   Future<void> onRefresh() async {
     _page = 0;
-    categories.clear();
+    rxBooks.clear();
     refreshController.refreshCompleted();
-    await _getCategories();
+    await _getBook();
   }
 }

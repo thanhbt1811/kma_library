@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:getx_base_code/common/constants/app_dimens.dart';
-import 'package:getx_base_code/common/utils/export.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
 

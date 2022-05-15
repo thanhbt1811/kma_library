@@ -99,6 +99,9 @@ class ApiClient {
     //   "auth-token": SessionData.authToken ?? '',
     // };
     headerMap.putIfAbsent("accept", () => "*/*");
+    if (basicAuthen != null) {
+      headerMap.putIfAbsent('Authorization', () => basicAuthen);
+    }
     Response response;
     try {
       var strMethod = _getMethod(method);

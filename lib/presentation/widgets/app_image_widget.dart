@@ -16,18 +16,20 @@ class AppImageWidget extends StatelessWidget {
   final double? height;
   final Color? color;
   double? loadingSize;
+  final bool isBorder;
 
-  AppImageWidget({
-    Key? key,
-    required this.path,
-    this.placeholder,
-    this.errorWidget,
-    this.fit,
-    this.width,
-    this.height,
-    this.loadingSize,
-    this.color,
-  }) : super(key: key);
+  AppImageWidget(
+      {Key? key,
+      required this.path,
+      this.placeholder,
+      this.errorWidget,
+      this.fit,
+      this.width,
+      this.height,
+      this.loadingSize,
+      this.color,
+      this.isBorder = false})
+      : super(key: key);
 
   Widget get _placeholder {
     return Center(
@@ -104,25 +106,57 @@ class AppImageWidget extends StatelessWidget {
         height: height,
       );
     }
-    return CachedNetworkImage(
-      imageUrl: path,
-      fit: fit,
-      width: width,
-      height: height,
-      placeholder: (context, url) => placeholder ?? _placeholder,
-      errorWidget: (context, url, error) {
-        return errorWidget ?? _errorWidget;
-      },
-      cacheManager: CacheManager(
-        Config(
-          'ImageCacheKey',
-          stalePeriod: const Duration(days: 1),
+    if (isBorder) {
+      return CachedNetworkImage(
+        imageUrl: path,
+        fit: fit,
+        width: width,
+        height: height,
+        placeholder: (context, url) => placeholder ?? _placeholder,
+        errorWidget: (context, url, error) {
+          return errorWidget ?? _errorWidget;
+        },
+        imageBuilder: (context, imageProvider) => Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(AppDimens.radius_15),
+            ),
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+          ),
         ),
-      ),
-      // httpHeaders: {
-      //   'auth-token': SessionData.authToken,
-      // },
-    );
+        cacheManager: CacheManager(
+          Config(
+            'ImageCacheKey',
+            stalePeriod: const Duration(days: 1),
+          ),
+        ),
+        // httpHeaders: {
+        //   'auth-token': SessionData.authToken,
+        // },
+      );
+    } else {
+      return CachedNetworkImage(
+        imageUrl: path,
+        fit: fit,
+        width: width,
+        height: height,
+        placeholder: (context, url) => placeholder ?? _placeholder,
+        errorWidget: (context, url, error) {
+          return errorWidget ?? _errorWidget;
+        },
+        cacheManager: CacheManager(
+          Config(
+            'ImageCacheKey',
+            stalePeriod: const Duration(days: 1),
+          ),
+        ),
+        // httpHeaders: {
+        //   'auth-token': SessionData.authToken,
+        // },
+      );
+    }
   }
 
   @override

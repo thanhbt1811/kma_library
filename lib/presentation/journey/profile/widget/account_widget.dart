@@ -45,18 +45,18 @@ class AccountWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Bùi Tiến Thành',
+                'Nguyễn Ngọc Hải Hiếu',
                 style: ThemeText.subtitle1,
               ),
               SizedBox(height: AppDimens.height_4),
               Text(
-                'Khoa: An Toàn Thông Tin',
+                'Khoa: Công nghệ thông tin',
                 style:
                     ThemeText.subtitle2.copyWith(fontWeight: FontWeight.w400),
               ),
               SizedBox(height: AppDimens.height_4),
               Text(
-                'Mã sinh viên: AT150350',
+                'Mã sinh viên: ',
                 style:
                     ThemeText.subtitle2.copyWith(fontWeight: FontWeight.w400),
               ),

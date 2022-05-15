@@ -14,6 +14,7 @@ class ImageConstants {
   static const String icUser = '$pngPath/ic_user.png';
   static const String icLock = '$pngPath/ic_lock.png';
   static const String icMail = '$pngPath/ic_mail.png';
+  static const String icDefaultCategory = '$pngPath/ic_default_category.png';
 
   /// SVG
   static const String icError = '$svgPath/ic_error.svg';

@@ -43,12 +43,7 @@ class CartScreen extends GetView<CartController> {
                     crossAxisSpacing: AppDimens.height_16,
                     mainAxisSpacing: AppDimens.space_4,
                     shrinkWrap: true,
-                    children: List.generate(
-                      30,
-                      (index) => const BookWidget(
-                        showStar: true,
-                      ),
-                    ),
+                    children: List.generate(30, (index) => Container()),
                   ),
                 ),
                 AppButton(

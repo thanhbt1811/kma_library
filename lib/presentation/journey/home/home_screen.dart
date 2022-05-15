@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/journey/home/widget/category_item.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
+import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
+import 'package:getx_base_code/presentation/widgets/app_refresh_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_scaffold.dart';
 import 'package:getx_base_code/presentation/widgets/appbar_widget.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
+import 'package:getx_base_code/presentation/widgets/list_shimmer/list_shimmer_widget.dart';
 
 import 'home_controller.dart';
 
@@ -44,21 +47,54 @@ class HomeScreen extends GetView<HomeController> {
               style: ThemeText.headline6.copyWith(fontWeight: FontWeight.w700),
             ),
             SizedBox(
-              height: AppDimens.height_40,
+              height: AppDimens.height_20,
             ),
             Expanded(
-              child: Column(
-                children: const [
-                  CategoryItem(),
-                  Spacer(),
-                  CategoryItem(),
-                  Spacer(),
-                ],
-              ),
+              child: Obx(() {
+                return AppRefreshWidget(
+                  enableLoadMore: controller.hasLoadMore.value,
+                  onRefresh: controller.onRefresh,
+                  onLoadMore: controller.onLoadmore,
+                  controller: controller.refreshController,
+                  footer: AppLoadingWidget(
+                    width: AppDimens.height_20,
+                  ),
+                  child: _buildCategoryList(),
+                );
+              }),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildCategoryList() {
+    if (controller.rxLoadedType.value == LoadedType.start) {
+      return const ListShimmerWidget();
+    } else {
+      if (controller.categories.isEmpty) {
+        return const Center(child: AppEmptyWidget());
+      } else {
+        return ListView.separated(
+            padding: EdgeInsets.only(bottom: AppDimens.height_20),
+            itemBuilder: (context, index) {
+              final category = controller.categories[index];
+              return CategoryItem(
+                category: category,
+                onTap: () {
+                  Get.toNamed(AppRoutes.bookList,
+                      arguments: {ArgumentConstants.categoryId: category.id});
+                },
+              );
+            },
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                height: AppDimens.height_12,
+              );
+            },
+            itemCount: controller.categories.length);
+      }
+    }
   }
 }

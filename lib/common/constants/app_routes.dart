@@ -10,4 +10,9 @@ class AppRoutes {
   static const String changePassword = '/profile/change_password';
   static const String historyOrder = '/profile/history_order';
   static const String history = '/profile/history';
+
+  ///Book
+  static const String bookList = '/book/list';
+  static const String bookDetail = '/book/detail';
+  static const String overViewBook = '/book/overview';
 }

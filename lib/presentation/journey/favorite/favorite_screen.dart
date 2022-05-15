@@ -41,14 +41,11 @@ class FavoriteScreen extends GetView<FavoriteController> {
                   child: GridView.count(
                     crossAxisCount: 2,
                     crossAxisSpacing: AppDimens.height_16,
-                    mainAxisSpacing: AppDimens.space_4,
+                    mainAxisSpacing: AppDimens.space_16,
                     shrinkWrap: true,
                     children: List.generate(
                       30,
-                      (index) => const BookWidget(
-                        showRecycleBin: true,
-                        showStar: true,
-                      ),
+                      (index) => Container(),
                     ),
                   ),
                 ),
