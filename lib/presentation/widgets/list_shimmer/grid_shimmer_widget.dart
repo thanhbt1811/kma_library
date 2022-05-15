@@ -33,7 +33,7 @@ class GridShimmerWidget extends StatelessWidget {
                     height: AppDimens.height_8,
                   ),
                   AppShimmer(
-                    height: AppDimens.height_16,
+                    height: AppDimens.height_12,
                   )
                 ],
               );

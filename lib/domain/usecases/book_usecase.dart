@@ -41,7 +41,7 @@ class BookUsecase {
 
   List<BookModel> _convertJsonToBookList(dynamic datas) {
     final books = <BookModel>[];
-    for (final data in datas) {
+    for (final data in datas ?? []) {
       books.add(
         BookModel.fromJson(data),
       );

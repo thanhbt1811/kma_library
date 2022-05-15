@@ -13,8 +13,13 @@ class CartScreen extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: const AppBarWidget(
-        title: 'Giỏ mượn sách',
+      appBar: AppBarWidget(
+        title: Text(
+          "Danh sách mượn",
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),

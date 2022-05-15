@@ -18,7 +18,15 @@ class BookListScreen extends GetView<BookListController> {
     controller.context = context;
     return AppScaffold(
       appBar: AppBarWidget(
-        title: "Tài liệu môn học",
+        title: Expanded(
+          child: Text(
+            controller.categiryName,
+            overflow: TextOverflow.clip,
+            style: ThemeText.headline6
+                .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+            textAlign: TextAlign.center,
+          ),
+        ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
           onTap: () => Get.back(),

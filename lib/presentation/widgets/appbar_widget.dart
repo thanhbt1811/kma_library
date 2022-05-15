@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/theme/theme_color.dart';
-import 'package:getx_base_code/presentation/theme/theme_text.dart';
 
 class AppBarButton extends StatelessWidget {
   final Widget? child;
@@ -47,7 +46,7 @@ class AppBarButton extends StatelessWidget {
 class AppBarWidget extends StatelessWidget implements PreferredSize {
   final Widget? leading;
   final Widget? action;
-  final String? title;
+  final Widget? title;
   final Widget? centerWidget;
   final TextStyle? titleStyle;
   final Color? color;
@@ -79,14 +78,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSize {
                 width: AppDimens.height_40,
                 height: AppDimens.height_40,
               ),
-          centerWidget ??
-              Text(
-                title ?? '',
-                style: titleStyle ??
-                    ThemeText.headline6.copyWith(
-                        fontSize: AppDimens.space_18, color: AppColors.white),
-                textAlign: TextAlign.left,
-              ),
+          centerWidget ?? title ?? const SizedBox(),
           action != null
               ? action!
               : SizedBox(

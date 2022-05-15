@@ -16,10 +16,12 @@ class BookListController extends CoreController {
   int _page = 0;
   RxBool hasLoadMore = true.obs;
   late String _categoryId;
+  late String categiryName;
 
   @override
   void onInit() {
     _categoryId = Get.arguments[ArgumentConstants.categoryId];
+    categiryName = Get.arguments[ArgumentConstants.categoryName];
     super.onInit();
   }
 

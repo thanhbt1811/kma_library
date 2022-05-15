@@ -18,7 +18,7 @@ class CategoryUsecase {
         context);
     if (response.result ?? false) {
       final datas = response.data['data'];
-      for (final data in datas) {
+      for (final data in datas ?? []) {
         categories.add(
           CategoryModel.fromJson(data),
         );

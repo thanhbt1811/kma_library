@@ -14,8 +14,13 @@ class ProfileScreen extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: const AppBarWidget(
-        title: 'Tài khoản',
+      appBar: AppBarWidget(
+        title: Text(
+          'Tài khoản',
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
       ),
       body: Stack(
         children: [

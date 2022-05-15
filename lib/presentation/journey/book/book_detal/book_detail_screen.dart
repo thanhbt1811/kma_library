@@ -15,7 +15,12 @@ class BookDetailScreen extends GetView<BookDetailController> {
   Widget build(BuildContext context) {
     return AppScaffold(
       appBar: AppBarWidget(
-        title: "Nghệ thuật khắc kỷ",
+        title: Text(
+          'Nghệ thuật khắc kỷ',
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
           onTap: () => Get.back(),

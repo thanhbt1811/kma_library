@@ -19,8 +19,13 @@ class HomeScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     controller.context = context;
     return AppScaffold(
-      appBar: const AppBarWidget(
-        title: "Danh mục",
+      appBar: AppBarWidget(
+        title: Text(
+          'Danh mục',
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),
@@ -83,8 +88,10 @@ class HomeScreen extends GetView<HomeController> {
               return CategoryItem(
                 category: category,
                 onTap: () {
-                  Get.toNamed(AppRoutes.bookList,
-                      arguments: {ArgumentConstants.categoryId: category.id});
+                  Get.toNamed(AppRoutes.bookList, arguments: {
+                    ArgumentConstants.categoryId: category.id,
+                    ArgumentConstants.categoryName: category.categoryName
+                  });
                 },
               );
             },

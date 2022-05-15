@@ -15,7 +15,12 @@ class ChangePasswordScreen extends GetView<ChangePasswordController> {
   Widget build(BuildContext context) {
     return AppScaffold(
       appBar: AppBarWidget(
-        title: 'Đổi mật khẩu',
+        title: Text(
+          'Đổi mật khẩu',
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
           onTap: () => Get.back(),

@@ -13,8 +13,13 @@ class FavoriteScreen extends GetView<FavoriteController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      appBar: const AppBarWidget(
-        title: 'Yêu Thích',
+      appBar: AppBarWidget(
+        title: Text(
+          'Yêu thích',
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),

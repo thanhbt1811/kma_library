@@ -14,7 +14,12 @@ class HistoryScreen extends GetView<HistoryOrderController> {
   Widget build(BuildContext context) {
     return AppScaffold(
       appBar: AppBarWidget(
-        title: 'Lịch sử mượn',
+        title: Text(
+          'Lịch sử mượn',
+          style: ThemeText.headline6
+              .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          textAlign: TextAlign.left,
+        ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
           onTap: () => Get.back(),
