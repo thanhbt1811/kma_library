@@ -15,7 +15,8 @@ class GridShimmerWidget extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.symmetric(
             horizontal: AppDimens.width_16, vertical: AppDimens.height_20),
-        itemBuilder: (context, index) {
+        itemBuilder: (gridContext, index) {
+          final width = MediaQuery.of(gridContext).size.width;
           return GridView.count(
             crossAxisCount: 2,
             crossAxisSpacing: AppDimens.height_16,
@@ -25,8 +26,8 @@ class GridShimmerWidget extends StatelessWidget {
               return Column(
                 children: [
                   AppShimmer(
-                    width: double.infinity,
                     height: AppDimens.height_120,
+                    width: width,
                   ),
                   SizedBox(
                     height: AppDimens.height_8,
