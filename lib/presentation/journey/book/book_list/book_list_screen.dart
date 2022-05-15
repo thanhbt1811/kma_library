@@ -8,7 +8,7 @@ import 'package:getx_base_code/presentation/widgets/app_refresh_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_scaffold.dart';
 import 'package:getx_base_code/presentation/widgets/appbar_widget.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
-import 'package:getx_base_code/presentation/widgets/list_shimmer/list_shimmer_widget.dart';
+import 'package:getx_base_code/presentation/widgets/list_shimmer/grid_shimmer_widget.dart';
 
 class BookListScreen extends GetView<BookListController> {
   const BookListScreen({Key? key}) : super(key: key);
@@ -64,7 +64,7 @@ class BookListScreen extends GetView<BookListController> {
 
   Widget _buildBookList() {
     if (controller.rxLoadedType.value == LoadedType.start) {
-      return const ListShimmerWidget();
+      return const GridShimmerWidget();
     } else {
       if (controller.rxBooks.isEmpty) {
         return const Center(child: AppEmptyWidget());
