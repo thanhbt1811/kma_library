@@ -16,6 +16,7 @@ import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_
 import 'package:getx_base_code/presentation/journey/auth/login/login_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/book_detal/book_detail_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
+import 'package:getx_base_code/presentation/journey/book/read_book/read_book_controller.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
 import 'package:getx_base_code/presentation/journey/favorite/favorite_controller.dart';
 import 'package:getx_base_code/presentation/journey/home/home_controller.dart';
@@ -57,6 +58,9 @@ void configLocator() {
   );
   getIt.registerFactory<BookListBindings>(
     () => BookListBindings(),
+  );
+  getIt.registerFactory<ReadBookBindings>(
+    () => ReadBookBindings(),
   );
 
   /// Controllers
@@ -110,6 +114,9 @@ void configLocator() {
     () => BookListController(
       getIt<BookUsecase>(),
     ),
+  );
+  getIt.registerFactory<ReadBookController>(
+    () => ReadBookController(),
   );
 
   /// UseCases

@@ -13,7 +13,7 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor ?? AppColors.transparent,
+      backgroundColor: backgroundColor ?? AppColors.white,
       appBar: appBar,
       body: body,
     );

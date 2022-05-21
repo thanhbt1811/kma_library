@@ -50,6 +50,7 @@ dependencies:
   flutter_config: ^2.0.0
   flutter_secure_storage: ^5.0.2
   pdf: ^3.8.0
+  syncfusion_flutter_pdfviewer: ^20.1.55-beta
   #  Network
   dio: ^4.0.4
   pretty_dio_logger: ^1.1.1

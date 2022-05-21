@@ -88,6 +88,10 @@ class BookListScreen extends GetView<BookListController> {
             final book = books[index];
             return BookWidget(
               book: book,
+              onPressed: () {
+                Get.toNamed(AppRoutes.bookDetail,
+                    arguments: {ArgumentConstants.book: book});
+              },
             );
           }),
         );

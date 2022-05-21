@@ -3,6 +3,7 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/domain/models/cateogory_model.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
+import 'package:getx_base_code/presentation/widgets/app_touchable.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel category;
@@ -12,8 +13,8 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
+    return AppTouchable(
+      onPressed: onTap,
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(

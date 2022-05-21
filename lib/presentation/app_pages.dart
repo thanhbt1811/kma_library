@@ -8,6 +8,7 @@ import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_
 import 'package:getx_base_code/presentation/journey/auth/login/login_screen.dart';
 import 'package:getx_base_code/presentation/journey/book/book_detal/book_detail_screen.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_screen.dart';
+import 'package:getx_base_code/presentation/journey/book/read_book/read_book_screen.dart';
 import 'package:getx_base_code/presentation/journey/profile/change_password/change_password_screen.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_screen.dart';
 import 'package:getx_base_code/presentation/journey/profile/history_order/history_order_screen.dart';
@@ -62,5 +63,10 @@ List<GetPage> myPages = [
     name: AppRoutes.bookDetail,
     page: () => const BookDetailScreen(),
     binding: BookDetailBinding(),
+  ),
+  GetPage(
+    name: AppRoutes.overViewBook,
+    page: () => const ReadBookScreen(),
+    binding: ReadBookBindings(),
   )
 ];

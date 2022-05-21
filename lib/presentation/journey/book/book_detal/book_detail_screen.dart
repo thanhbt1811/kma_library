@@ -6,7 +6,9 @@ import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_button.dart';
 import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_scaffold.dart';
+import 'package:getx_base_code/presentation/widgets/app_touchable.dart';
 import 'package:getx_base_code/presentation/widgets/appbar_widget.dart';
+import 'package:getx_base_code/presentation/widgets/keybroad_avoid.dart';
 
 class BookDetailScreen extends GetView<BookDetailController> {
   const BookDetailScreen({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
-          'Nghệ thuật khắc kỷ',
+          controller.book.title,
           style: ThemeText.headline6
               .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
           textAlign: TextAlign.left,
@@ -28,14 +30,20 @@ class BookDetailScreen extends GetView<BookDetailController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),
-        child: SingleChildScrollView(
-          child: Column(
+        child: KeyBroadAvoid(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: AppImageWidget(
-                    path:
-                        'https://book-management-storage.s3.us-east-1.amazonaws.com/thumbnails/28dbe6be-a9c8-49d0-fc92-08da31f325e8/272588839_703280581054845_949684622302582365_n.jpg'),
+              SizedBox(
+                height: AppDimens.height_16,
               ),
+              AppTouchable(
+                  onPressed: () {
+                    Get.toNamed(AppRoutes.overViewBook,
+                        arguments: {ArgumentConstants.book: controller.book});
+                  },
+                  child: AppImageWidget(path: controller.book.thumbnail)),
               SizedBox(
                 height: AppDimens.height_12,
               ),
@@ -45,7 +53,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
                     style: ThemeText.subtitle1,
                     children: [
                       TextSpan(
-                        text: '1',
+                        text: controller.book.quantity.toString(),
                         style: ThemeText.subtitle2.copyWith(
                           fontWeight: FontWeight.w400,
                         ),
@@ -64,7 +72,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
               ),
               Expanded(
                 child: Text(
-                  'Nghệ thuật khắc kỷ',
+                  controller.book.description ?? '',
                   style: ThemeText.subtitle2.copyWith(
                     fontWeight: FontWeight.w400,
                   ),
@@ -77,6 +85,9 @@ class BookDetailScreen extends GetView<BookDetailController> {
                 title: 'Mượn sách',
                 onPressed: _hireBook,
               ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              )
             ],
           ),
         ),
