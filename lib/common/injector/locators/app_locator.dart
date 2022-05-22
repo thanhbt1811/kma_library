@@ -8,11 +8,13 @@ import 'package:getx_base_code/data/local_repository.dart';
 import 'package:getx_base_code/data/remote/authentication_repository.dart';
 import 'package:getx_base_code/data/remote/book_repository.dart';
 import 'package:getx_base_code/data/remote/category_repository.dart';
+import 'package:getx_base_code/data/remote/notification_repository.dart';
 import 'package:getx_base_code/data/remote/user_repository.dart';
 import 'package:getx_base_code/domain/usecases/authentication_usecase.dart';
 import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/domain/usecases/category_usecase.dart';
 import 'package:getx_base_code/domain/usecases/image_use_case.dart';
+import 'package:getx_base_code/domain/usecases/notification_usecase.dart';
 import 'package:getx_base_code/domain/usecases/user_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_password_controller.dart';
@@ -90,7 +92,9 @@ void configLocator() {
     ),
   );
   getIt.registerFactory<NotificationController>(
-    () => NotificationController(),
+    () => NotificationController(
+      getIt<NotificationUsecase>(),
+    ),
   );
   getIt.registerFactory<CartController>(
     () => CartController(
@@ -165,6 +169,11 @@ void configLocator() {
       getIt<ImageLocalRepository>(),
     ),
   );
+  getIt.registerFactory<NotificationUsecase>(
+    () => NotificationUsecase(
+      getIt<NotificationRepository>(),
+    ),
+  );
 
   /// Repositories
   getIt.registerFactory<AuthenticationRepository>(
@@ -193,6 +202,11 @@ void configLocator() {
   getIt.registerFactory(
     () => ImageLocalRepository(
       getIt<ImagePicker>(),
+    ),
+  );
+  getIt.registerFactory<NotificationRepository>(
+    () => NotificationRepository(
+      getIt<ApiClient>(),
     ),
   );
 

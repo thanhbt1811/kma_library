@@ -8,6 +8,10 @@ class ApiConstants {
   static const String hiringBook = '/Books/hiring-books';
   static const String returnedBook = '/Books/returned-books';
 
+  ///User
   static const String getMe = '/Authentication/get-me';
   static const String avatar = '/user/thumbnail';
+
+  ///Notification
+  static const String notification = '/Notices';
 }

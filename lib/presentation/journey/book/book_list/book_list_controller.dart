@@ -36,6 +36,7 @@ class BookListController extends CoreController {
   @override
   void onClose() {
     refreshController.dispose();
+    searchCtl.dispose();
     super.onClose();
   }
 

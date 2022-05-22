@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
-import 'package:getx_base_code/common/constants/format_constants.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/widget/history_item.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
