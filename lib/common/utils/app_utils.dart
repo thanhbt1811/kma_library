@@ -91,3 +91,7 @@ Future<BaseResponse> requestApi(
   }
   return baseResponse;
 }
+
+String dateFormatter(String format, DateTime value) {
+  return DateFormat(format, 'vi').format(value);
+}

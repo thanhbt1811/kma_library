@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/common/constants/format_constants.dart';
+import 'package:getx_base_code/domain/models/hire_model.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
 
-class HistoryOrderItem extends StatelessWidget {
-  const HistoryOrderItem({Key? key}) : super(key: key);
+class ReturnedItem extends StatelessWidget {
+  final HireModel hire;
+  const ReturnedItem({Key? key, required this.hire}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +21,25 @@ class HistoryOrderItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: AppDimens.width_80,
-                height: AppDimens.height_60,
-                decoration: const BoxDecoration(
-                    color: AppColors.second,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(AppDimens.radius_20),
-                    )),
-              ),
+              AppImageWidget(
+                  isBorder: true,
+                  height: AppDimens.height_60,
+                  width: AppDimens.width_80,
+                  path: hire.thumbnail),
               SizedBox(
                 width: AppDimens.width_16,
               ),
               Column(
                 children: [
                   Text(
-                    'Hệ quản trị cơ sở dữ liệu',
+                    hire.title,
                     style: ThemeText.bodyText1,
                   ),
                   SizedBox(
                     height: AppDimens.height_8,
                   ),
                   Text(
-                    'Ngày hẹn: 12:30 20/5/2022',
+                    'Ngày trả: ${hire.returnedDate != null ? dateFormatter(FormatConstants.formatddMMyyyyy, hire.returnedDate!) : ""}',
                     style: ThemeText.bodyText2.copyWith(color: AppColors.grey),
                   ),
                 ],

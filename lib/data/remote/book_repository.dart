@@ -8,7 +8,7 @@ class BookRepository {
   BookRepository(this._apiClient);
 
   Future<BaseResponse> getBooks(
-      String author, int pageNumber, int pageSize) async {
+      String author, int pageNumber, int pageSize, String searchJ) async {
     final response = await _apiClient.request(
       path: ApiConstants.books,
       basicAuthen: author,
@@ -21,13 +21,15 @@ class BookRepository {
     return response;
   }
 
-  Future<BaseResponse> getBookWithCategory(
-      String author, String categoryId, int pageSize, int pageNumber) async {
+  Future<BaseResponse> getBookWithCategory(String author, String categoryId,
+      int pageSize, int pageNumber, String? searchKey) async {
     final response = await _apiClient.request(
-      path: '${ApiConstants.categories}/{$categoryId}/books',
+      path: ApiConstants.books,
       basicAuthen: author,
       method: NetworkMethod.get,
       queryParameters: {
+        ArgumentConstants.searchKey: searchKey,
+        ArgumentConstants.categoryId: categoryId,
         ArgumentConstants.pageNumber: pageNumber,
         ArgumentConstants.pageSize: pageSize
       },
@@ -42,5 +44,28 @@ class BookRepository {
       basicAuthen: author,
     );
     return response;
+  }
+
+  Future<BaseResponse> getHiringBook(String author, int page, int size) async {
+    return _apiClient.request(
+        path: ApiConstants.hiringBook,
+        method: NetworkMethod.get,
+        basicAuthen: author,
+        queryParameters: {
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        });
+  }
+
+  Future<BaseResponse> getReturnedBook(
+      String author, int page, int size) async {
+    return _apiClient.request(
+        path: ApiConstants.returnedBook,
+        method: NetworkMethod.get,
+        basicAuthen: author,
+        queryParameters: {
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        });
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx_base_code/common/constants/constants_export.dart';
 import 'package:getx_base_code/domain/request/login_request.dart';
 import 'package:getx_base_code/domain/usecases/authentication_usecase.dart';
+import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
 
 class LoginController extends CoreController {
@@ -26,7 +27,9 @@ class LoginController extends CoreController {
       password: passwordCtl.text.trim(),
     );
     final response = await _authenticationUsecase.login(context, request);
-    if (response) {
+    if (response != null) {
+      final appController = Get.find<AppController>();
+      appController.user = response;
       Get.toNamed(AppRoutes.main);
     }
     rxLoadedType.value = LoadedType.finish;

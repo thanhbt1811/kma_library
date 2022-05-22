@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/constants/constants_export.dart';
+import 'package:getx_base_code/common/utils/debounce.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
@@ -11,7 +12,8 @@ import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:getx_base_code/presentation/widgets/list_shimmer/grid_shimmer_widget.dart';
 
 class BookListScreen extends GetView<BookListController> {
-  const BookListScreen({Key? key}) : super(key: key);
+  final _debouncer = Debounce(milliseconds: 300);
+  BookListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,12 @@ class BookListScreen extends GetView<BookListController> {
           ),
           AppTextFieldWidget(
             hintText: 'Tìm kiếm',
+            controller: controller.searchCtl,
             backgroundColor: AppColors.gallerySolid,
             borderColor: AppColors.gallerySolid,
+            onChanged: (value) => _debouncer.run(() {
+              controller.getBook(searchKey: value, isLoadmore: false, page: 0);
+            }),
             prefixIcon: AppImageWidget(
               path: ImageConstants.icSearch,
               width: AppDimens.height_24,

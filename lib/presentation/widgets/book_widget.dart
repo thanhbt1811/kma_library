@@ -42,7 +42,7 @@ class BookWidget extends StatelessWidget {
                     Visibility(
                       visible: showStar,
                       child: AppImageWidget(
-                        path: ImageConstants.icStar,
+                        path: ImageConstants.icCart,
                         color: AppColors.second,
                       ),
                     ),

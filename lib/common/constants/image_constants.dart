@@ -23,7 +23,7 @@ class ImageConstants {
   static const String icWarning = '$svgPath/ic_warning.svg';
   static const String icLoginScreen = '$svgPath/ic_login_screen.svg';
   static const String icVerifyOtpScreen = '$svgPath/ic_verify_otp_screen.svg';
-  static const String icNavAccount = '$svgPath/ic_nav_account.svg';
+  // static const String icNavAccount = '$svgPath/ic_nav_account.svg';
   static const String icNavFinance = '$svgPath/ic_nav_finance.svg';
   static const String icNavHome = '$svgPath/ic_nav_home.svg';
   static const String icNavLove = '$svgPath/ic_nav_love.svg';
@@ -41,4 +41,7 @@ class ImageConstants {
   static const String icBell = '$svgPath/ic_bell.svg';
   static const String icSearch = '$svgPath/ic_search.svg';
   static const String icRecycleBin = '$svgPath/ic_recycle_bin.svg';
+  static const String icNavAccount = '$svgPath/ic_user.svg';
+  static const String icPersionCard = '$svgPath/ic_persion_card.svg';
+  static const String icPhone = '$svgPath/ic_phone.svg';
 }

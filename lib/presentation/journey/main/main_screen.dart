@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_screen.dart';
-import 'package:getx_base_code/presentation/journey/favorite/favorite_screen.dart';
 import 'package:getx_base_code/presentation/journey/home/home_screen.dart';
 import 'package:getx_base_code/presentation/journey/notification/notification_screen.dart';
 import 'package:getx_base_code/presentation/journey/profile/profile_screen.dart';
@@ -75,15 +74,9 @@ class MainScreen extends GetView<MainController> {
             ),
             _buildBottomNavigationItemWidget(
               context,
-              path: ImageConstants.icStar,
+              path: ImageConstants.icNavAccount,
               isSelected: controller.rxCurrentNavIndex.value == 3,
               onPressed: () => controller.onChangedNav(3),
-            ),
-            _buildBottomNavigationItemWidget(
-              context,
-              path: ImageConstants.icNavAccount,
-              isSelected: controller.rxCurrentNavIndex.value == 4,
-              onPressed: () => controller.onChangedNav(4),
             ),
           ],
         ),
@@ -93,11 +86,11 @@ class MainScreen extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.context = context;
     final List<Widget> pages = [
       const HomeScreen(),
       const NotificationScreen(),
       const CartScreen(),
-      const FavoriteScreen(),
       const ProfileScreen()
     ];
 

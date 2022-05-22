@@ -1,63 +1,48 @@
 import 'package:get/get.dart';
+import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/domain/models/hire_model.dart';
 import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class CartController extends CoreController {
+class ReturnedController extends CoreController {
   final BookUsecase _bookUsecase;
-
   final RefreshController refreshController = RefreshController();
-  final RxList rxBooks = [].obs;
+  RxList<HireModel> hirings = <HireModel>[].obs;
   final int _pageSize = 10;
   int _page = 0;
   RxBool hasLoadMore = true.obs;
 
-  CartController(this._bookUsecase);
+  ReturnedController(this._bookUsecase);
 
   @override
   void onReady() {
-    getCartList();
+    _getHiringBook();
     super.onReady();
   }
 
-  void getCartList() {
-    startLoading();
-    rxBooks.value = _bookUsecase.getCartList();
-    finishLoading();
+  @override
+  void onClose() {
+    refreshController.dispose();
+    super.onClose();
   }
 
-  Future<void> onLoadmore() async {
-    _page += 1;
-    await _getBook(
-      isLoadmore: true,
-    );
-    refreshController.loadComplete();
-  }
-
-  Future<void> _getBook({
-    bool isLoadmore = false,
-  }) async {
+  Future<void> _getHiringBook({bool isLoadmore = false}) async {
     if (!isLoadmore) {
-      startLoading();
+      rxLoadedType.value = LoadedType.start;
     }
-    // final res = await _bookUsecase.getBooksWithCategory(
-    //   context,
-    //   _categoryId,
-    //   _page,
-    //   _pageSize,
-    // );
-    final res = [];
+    final res = await _bookUsecase.getReturned(context, _page, _pageSize);
     if (!isLoadmore) {
-      finishLoading();
+      rxLoadedType.value = LoadedType.finish;
     } else {
       refreshController.refreshCompleted();
     }
 
     if (res.isNotEmpty) {
       if (isLoadmore) {
-        rxBooks.addAll(res);
+        hirings.addAll(res);
       } else {
-        rxBooks.value = res;
+        hirings.value = res;
       }
       if (res.length <= _pageSize) {
         hasLoadMore.value = false;
@@ -67,10 +52,18 @@ class CartController extends CoreController {
     }
   }
 
+  Future<void> onLoadmore() async {
+    _page += 1;
+    await _getHiringBook(
+      isLoadmore: true,
+    );
+    refreshController.loadComplete();
+  }
+
   Future<void> onRefresh() async {
     _page = 0;
-    rxBooks.clear();
+    hirings.clear();
     refreshController.refreshCompleted();
-    await _getBook();
+    await _getHiringBook();
   }
 }

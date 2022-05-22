@@ -13,6 +13,7 @@ class ProfileScreen extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.context = context;
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
@@ -36,54 +37,60 @@ class ProfileScreen extends GetView<ProfileController> {
                   padding: EdgeInsets.only(top: AppDimens.height_44),
                   child: Column(
                     children: [
-                      MenuItemWidget(title: 'Trang cá nhân', onTap: () {}),
-                      const Divider(
-                        height: 1,
-                      ),
                       MenuItemWidget(
-                          title: 'Lịch sử mượn',
-                          onTap: () => Get.toNamed(AppRoutes.history)),
-                      const Divider(
-                        height: 1,
-                      ),
-                      MenuItemWidget(
-                          title: 'Lịch sử đặt mượn',
-                          onTap: () => Get.toNamed(AppRoutes.historyOrder)),
-                      const Divider(
-                        height: 1,
-                      ),
-                      MenuItemWidget(
-                        title: 'Thông báo',
-                        onTap: () {},
-                        action: Obx(
-                          (() => Switch(
-                                onChanged: (_) => controller.setRxActiveNoti(),
-                                value: controller.rxActiveNoti.value,
-                                activeColor: AppColors.second,
-                                activeTrackColor:
-                                    AppColors.second.withOpacity(0.5),
-                                inactiveThumbColor: AppColors.second,
-                                inactiveTrackColor:
-                                    AppColors.second.withOpacity(0.5),
-                              )),
+                        title: 'Trang cá nhân',
+                        onTap: () => Get.toNamed(
+                          AppRoutes.myProfiel,
                         ),
                       ),
                       const Divider(
                         height: 1,
                       ),
                       MenuItemWidget(
-                        title: 'Đổi mật khẩu',
-                        onTap: () => Get.toNamed(AppRoutes.changePassword),
-                      ),
+                          title: 'Sách đã mượn',
+                          onTap: () => Get.toNamed(AppRoutes.history)),
                       const Divider(
                         height: 1,
                       ),
                       MenuItemWidget(
-                          title: 'Đăng xuất',
-                          textStyle: ThemeText.subtitle1.copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.radicalRedApprox),
-                          onTap: () {}),
+                          title: 'Sách đã trả',
+                          onTap: () => Get.toNamed(AppRoutes.historyOrder)),
+                      const Divider(
+                        height: 1,
+                      ),
+                      // MenuItemWidget(
+                      //   title: 'Thông báo',
+                      //   onTap: () {},
+                      //   action: Obx(
+                      //     (() => Switch(
+                      //           onChanged: (_) => controller.setRxActiveNoti(),
+                      //           value: controller.rxActiveNoti.value,
+                      //           activeColor: AppColors.second,
+                      //           activeTrackColor:
+                      //               AppColors.second.withOpacity(0.5),
+                      //           inactiveThumbColor: AppColors.second,
+                      //           inactiveTrackColor:
+                      //               AppColors.second.withOpacity(0.5),
+                      //         )),
+                      //   ),
+                      // ),
+                      // const Divider(
+                      //   height: 1,
+                      // ),
+                      // MenuItemWidget(
+                      //   title: 'Đổi mật khẩu',
+                      //   onTap: () => Get.toNamed(AppRoutes.changePassword),
+                      // ),
+                      // const Divider(
+                      //   height: 1,
+                      // ),
+                      MenuItemWidget(
+                        title: 'Đăng xuất',
+                        textStyle: ThemeText.subtitle1.copyWith(
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.radicalRedApprox),
+                        onTap: controller.onLogOut,
+                      ),
                     ],
                   ),
                 ),

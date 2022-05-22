@@ -7,5 +7,7 @@ class ArgumentConstants {
   static const String id = 'id';
   static const String categoryId = 'category_id';
   static const String categoryName = 'category_Name';
-  static const book = 'book';
+  static const String book = 'book';
+  static const String searchKey = 'searchKey';
+  static const String thumbnail = 'thumbnail';
 }

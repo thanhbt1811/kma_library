@@ -4,3 +4,4 @@ export 'translations/app_translations.dart';
 export 'status_bar_style/export.dart';
 export 'app_text_input_formatter.dart';
 export 'app_utils.dart';
+export 'debounce.dart';

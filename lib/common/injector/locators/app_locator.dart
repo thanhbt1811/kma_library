@@ -2,15 +2,18 @@ import 'package:get_it/get_it.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/common/injector/bindings/auth_binding.dart';
 import 'package:getx_base_code/common/injector/bindings/book_bindings.dart';
-import 'package:getx_base_code/common/injector/bindings/favorite_binding.dart';
 import 'package:getx_base_code/common/injector/bindings/profile_binding.dart';
+import 'package:getx_base_code/data/local/image_local_repository.dart';
 import 'package:getx_base_code/data/local_repository.dart';
 import 'package:getx_base_code/data/remote/authentication_repository.dart';
 import 'package:getx_base_code/data/remote/book_repository.dart';
 import 'package:getx_base_code/data/remote/category_repository.dart';
+import 'package:getx_base_code/data/remote/user_repository.dart';
 import 'package:getx_base_code/domain/usecases/authentication_usecase.dart';
 import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/domain/usecases/category_usecase.dart';
+import 'package:getx_base_code/domain/usecases/image_use_case.dart';
+import 'package:getx_base_code/domain/usecases/user_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_password_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/login/login_controller.dart';
@@ -18,15 +21,16 @@ import 'package:getx_base_code/presentation/journey/book/book_detal/book_detail_
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/read_book/read_book_controller.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
-import 'package:getx_base_code/presentation/journey/favorite/favorite_controller.dart';
 import 'package:getx_base_code/presentation/journey/home/home_controller.dart';
 import 'package:getx_base_code/presentation/journey/main/main_controller.dart';
 import 'package:getx_base_code/presentation/journey/notification/notification_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/change_password/change_password_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
-import 'package:getx_base_code/presentation/journey/profile/history_order/history_order_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/my_profile/my_profile_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/profile_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/returned/returned_controller.dart';
 import 'package:getx_base_code/presentation/journey/splash/splash_controller.dart';
+import 'package:image_picker/image_picker.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -47,12 +51,19 @@ void configLocator() {
   getIt.registerFactory<CartBinding>(
     () => CartBinding(),
   );
-  getIt.registerFactory<FavoriteBinding>(
-    () => FavoriteBinding(),
-  );
   getIt.registerFactory<ProfileBinding>(
     () => ProfileBinding(),
   );
+  getIt.registerFactory<MyProfileBindings>(
+    () => MyProfileBindings(),
+  );
+  getIt.registerFactory<HistoryBidings>(
+    () => HistoryBidings(),
+  );
+  getIt.registerFactory<ReturnedBindings>(
+    () => ReturnedBindings(),
+  );
+
   getIt.registerFactory<BookDetailBinding>(
     () => BookDetailBinding(),
   );
@@ -82,13 +93,16 @@ void configLocator() {
     () => NotificationController(),
   );
   getIt.registerFactory<CartController>(
-    () => CartController(),
-  );
-  getIt.registerFactory<FavoriteController>(
-    () => FavoriteController(),
+    () => CartController(
+      getIt<BookUsecase>(),
+    ),
   );
   getIt.registerFactory<ProfileController>(
-    () => ProfileController(),
+    () => ProfileController(getIt<AuthenticationUsecase>(),
+        getIt<ImageUseCase>(), getIt<UserUsecase>()),
+  );
+  getIt.registerFactory<MyProfileController>(
+    () => MyProfileController(),
   );
   getIt.registerFactory<LoginController>(
     () => LoginController(
@@ -102,13 +116,19 @@ void configLocator() {
     () => ChangePasswordController(),
   );
   getIt.registerFactory(
-    () => HistoryOrderController(),
+    () => ReturnedController(
+      getIt<BookUsecase>(),
+    ),
   );
   getIt.registerFactory(
-    () => HistoryController(),
+    () => HistoryController(
+      getIt<BookUsecase>(),
+    ),
   );
   getIt.registerFactory<BookDetailController>(
-    () => BookDetailController(),
+    () => BookDetailController(
+      getIt<BookUsecase>(),
+    ),
   );
   getIt.registerFactory<BookListController>(
     () => BookListController(
@@ -121,9 +141,12 @@ void configLocator() {
 
   /// UseCases
   getIt.registerFactory<AuthenticationUsecase>(
-    () => AuthenticationUsecase(
-      getIt<AuthenticationRepository>(),
-      getIt<LocalRepository>(),
+    () => AuthenticationUsecase(getIt<AuthenticationRepository>(),
+        getIt<LocalRepository>(), getIt<UserRepository>()),
+  );
+  getIt.registerFactory(
+    () => UserUsecase(
+      getIt<UserRepository>(),
     ),
   );
   getIt.registerFactory<CategoryUsecase>(
@@ -134,12 +157,23 @@ void configLocator() {
   getIt.registerFactory<BookUsecase>(
     () => BookUsecase(
       getIt<BookRepository>(),
+      getIt<LocalRepository>(),
+    ),
+  );
+  getIt.registerFactory(
+    () => ImageUseCase(
+      getIt<ImageLocalRepository>(),
     ),
   );
 
   /// Repositories
   getIt.registerFactory<AuthenticationRepository>(
     () => AuthenticationRepository(
+      getIt<ApiClient>(),
+    ),
+  );
+  getIt.registerFactory(
+    () => UserRepository(
       getIt<ApiClient>(),
     ),
   );
@@ -156,9 +190,17 @@ void configLocator() {
   getIt.registerFactory<LocalRepository>(
     () => LocalRepository(),
   );
+  getIt.registerFactory(
+    () => ImageLocalRepository(
+      getIt<ImagePicker>(),
+    ),
+  );
 
   ///Common
   getIt.registerSingleton(
     ApiClient(),
+  );
+  getIt.registerSingleton(
+    ImagePicker(),
   );
 }

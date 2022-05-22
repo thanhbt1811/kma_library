@@ -51,6 +51,9 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   pdf: ^3.8.0
   syncfusion_flutter_pdfviewer: ^20.1.55-beta
+  image_picker: ^0.8.4
+  flutter_image_compress: ^1.1.0
+  crop_your_image: ^0.7.2
   #  Network
   dio: ^4.0.4
   pretty_dio_logger: ^1.1.1

@@ -1,6 +1,7 @@
 class BookModel {
   final String id;
   final String title;
+  final String? subTitle;
   final int quantity;
   final String? description;
   final String categoryCode;
@@ -16,6 +17,7 @@ class BookModel {
   BookModel(
       {required this.id,
       required this.title,
+      this.subTitle,
       required this.quantity,
       this.description,
       required this.categoryCode,
@@ -47,5 +49,24 @@ class BookModel {
             : null,
         term: json['term'],
         status: json['status']);
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "title": title,
+      "subTitle": subTitle,
+      "quantity": quantity,
+      "description": description,
+      "categoryCode": categoryCode,
+      "categoryId": categoryId,
+      "thumbnail": thumbnail,
+      "pdfFile": pdfFile,
+      "createdAt": createdAt.toIso8601String(),
+      "updatedAt": updatedAt?.toIso8601String(),
+      "deletedAt": deletedAt?.toIso8601String(),
+      "term": term,
+      "hiredFrom": null,
+      "status": status
+    };
   }
 }

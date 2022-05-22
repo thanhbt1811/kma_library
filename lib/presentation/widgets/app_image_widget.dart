@@ -17,6 +17,7 @@ class AppImageWidget extends StatelessWidget {
   final Color? color;
   double? loadingSize;
   final bool isBorder;
+  final bool isCircle;
 
   AppImageWidget(
       {Key? key,
@@ -28,6 +29,7 @@ class AppImageWidget extends StatelessWidget {
       this.height,
       this.loadingSize,
       this.color,
+      this.isCircle = false,
       this.isBorder = false})
       : super(key: key);
 
@@ -104,6 +106,38 @@ class AppImageWidget extends StatelessWidget {
         fit: fit,
         width: width,
         height: height,
+        errorBuilder: (context, url, error) {
+          return errorWidget ?? _errorWidget;
+        },
+      );
+    }
+    if (isCircle) {
+      return CachedNetworkImage(
+        imageUrl: path,
+        fit: fit,
+        width: width,
+        height: height,
+        placeholder: (context, url) => placeholder ?? _placeholder,
+        errorWidget: (context, url, error) {
+          return errorWidget ?? _errorWidget;
+        },
+        imageBuilder: (context, imageProvider) => Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+          ),
+        ),
+        cacheManager: CacheManager(
+          Config(
+            'ImageCacheKey',
+            stalePeriod: const Duration(days: 1),
+          ),
+        ),
+        // httpHeaders: {
+        //   'auth-token': SessionData.authToken,
+        // },
       );
     }
     if (isBorder) {

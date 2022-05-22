@@ -1,23 +1,42 @@
 import 'package:get/get.dart';
-import 'package:getx_base_code/presentation/journey/profile/change_password/change_password_controller.dart';
+import 'package:getx_base_code/common/injector/locators/app_locator.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
-import 'package:getx_base_code/presentation/journey/profile/history_order/history_order_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/my_profile/my_profile_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/profile_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/returned/returned_controller.dart';
 
 class ProfileBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(
-      ProfileController(),
+      getIt<ProfileController>(),
     );
+  }
+}
+
+class ReturnedBindings extends Bindings {
+  @override
+  void dependencies() {
     Get.put(
-      ChangePasswordController(),
+      getIt<ReturnedController>(),
     );
+  }
+}
+
+class HistoryBidings extends Bindings {
+  @override
+  void dependencies() {
     Get.put(
-      HistoryOrderController(),
+      getIt<HistoryController>(),
     );
+  }
+}
+
+class MyProfileBindings extends Bindings {
+  @override
+  void dependencies() {
     Get.put(
-      HistoryController(),
+      getIt<MyProfileController>(),
     );
   }
 }

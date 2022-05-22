@@ -122,7 +122,7 @@ class _AppTextFieldWidgetState extends State<AppTextFieldWidget> {
                                   onPressed: () {
                                     setState(() {
                                       _isShowClose = false;
-                                      widget.controller!.text = '';
+                                      widget.controller?.clear();
                                     });
                                     if (!isNullEmpty(widget.onChanged)) {
                                       widget.onChanged!('');

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/common/constants/format_constants.dart';
+import 'package:getx_base_code/domain/models/hire_model.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
 
 class HistoryItem extends StatelessWidget {
-  const HistoryItem({Key? key}) : super(key: key);
+  final HireModel hire;
+  const HistoryItem({Key? key, required this.hire}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,29 +21,26 @@ class HistoryItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              Container(
-                width: AppDimens.width_80,
-                height: AppDimens.height_60,
-                decoration: const BoxDecoration(
-                    color: AppColors.second,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(AppDimens.radius_20),
-                    )),
-              ),
+              AppImageWidget(
+                  isBorder: true,
+                  height: AppDimens.height_60,
+                  width: AppDimens.width_80,
+                  path: hire.thumbnail),
               SizedBox(
                 width: AppDimens.width_16,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hệ quản trị cơ sở dữ liệu',
+                    hire.title,
                     style: ThemeText.bodyText1,
                   ),
                   SizedBox(
                     height: AppDimens.height_8,
                   ),
                   Text(
-                    'Ngày mượn: 12:30 20/5/2022',
+                    'Ngày mượn: ',
                     style: ThemeText.bodyText2.copyWith(color: AppColors.grey),
                   ),
                 ],
@@ -54,7 +54,7 @@ class HistoryItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Hạn trả: 12:30 20/8/2022',
+                'Hạn trả: ${hire.expiredDate != null ? dateFormatter(FormatConstants.formatddMMyyyyy, hire.expiredDate!) : ""}',
                 style: ThemeText.bodyText2.copyWith(color: AppColors.grey),
               ),
               AppImageWidget(path: ImageConstants.icDone),

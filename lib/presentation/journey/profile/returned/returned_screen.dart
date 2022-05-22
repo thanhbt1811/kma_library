@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
-import 'package:getx_base_code/common/constants/format_constants.dart';
-import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
-import 'package:getx_base_code/presentation/journey/profile/history/widget/history_item.dart';
+import 'package:getx_base_code/presentation/journey/profile/returned/returned_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/returned/widget/returned_item.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_refresh_widget.dart';
@@ -12,8 +11,11 @@ import 'package:getx_base_code/presentation/widgets/appbar_widget.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:getx_base_code/presentation/widgets/list_shimmer/list_shimmer_widget.dart';
 
-class HistoryScreen extends GetView<HistoryController> {
-  const HistoryScreen({Key? key}) : super(key: key);
+List<String> title = ["Nghệ thuật khắc kỷ", "Nghệ thuật khắc kỷ", "Toán A1"];
+List<String> returnedDate = ["30/3/2022", "13/5/2022", "20/5/2022"];
+
+class ReturnedScreen extends GetView<ReturnedController> {
+  const ReturnedScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class HistoryScreen extends GetView<HistoryController> {
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
-          'Sách đang mượn',
+          'Sách đã trả',
           style: ThemeText.headline6
               .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
           textAlign: TextAlign.left,
@@ -59,7 +61,7 @@ class HistoryScreen extends GetView<HistoryController> {
               horizontal: AppDimens.width_16, vertical: AppDimens.height_16),
           itemBuilder: (context, index) {
             final hire = hires[index];
-            return HistoryItem(
+            return ReturnedItem(
               hire: hire,
             );
           },

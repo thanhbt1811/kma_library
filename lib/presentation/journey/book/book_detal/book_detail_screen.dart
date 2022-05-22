@@ -15,6 +15,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.context = context;
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
@@ -81,9 +82,12 @@ class BookDetailScreen extends GetView<BookDetailController> {
               SizedBox(
                 height: AppDimens.height_12,
               ),
-              AppButton(
-                title: 'Mượn sách',
-                onPressed: _hireBook,
+              Obx(
+                () => AppButton(
+                  title: 'Mượn sách',
+                  loaded: controller.rxLoadedType.value,
+                  onPressed: _hireBook,
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
@@ -95,5 +99,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
     );
   }
 
-  void _hireBook() {}
+  void _hireBook() {
+    controller.addToCart();
+  }
 }
