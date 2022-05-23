@@ -98,4 +98,21 @@ class BookUsecase {
     }
     return returns;
   }
+
+  Future<List<BookModel>> getBookInTerm(
+      BuildContext context, int term, int page, int size) async {
+    final books = <BookModel>[];
+    final res = await requestApi(
+        () => _bookRepository.getBookInTerm(
+            SessionData.authToken, term, page, size),
+        context);
+    if (res.result ?? false) {
+      for (final data in res.data['data']) {
+        books.add(
+          BookModel.fromJson(data),
+        );
+      }
+    }
+    return books;
+  }
 }

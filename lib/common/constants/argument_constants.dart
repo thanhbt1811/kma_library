@@ -10,4 +10,5 @@ class ArgumentConstants {
   static const String book = 'book';
   static const String searchKey = 'searchKey';
   static const String thumbnail = 'thumbnail';
+  static const String term = 'term';
 }

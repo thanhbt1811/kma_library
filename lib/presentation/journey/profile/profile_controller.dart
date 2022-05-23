@@ -15,18 +15,10 @@ class ProfileController extends CoreController {
   final ImageUseCase _imageUseCase;
   final UserUsecase _userUsecase;
   RxBool rxActiveNoti = false.obs;
-  Rx<String> rxAvatarPath = ImageConstants.icDefaultAvatar.obs;
-  late UserModel user;
+  Rx<UserModel> user = Get.find<AppController>().user.obs;
 
   ProfileController(
       this._authenticationUsecase, this._imageUseCase, this._userUsecase);
-
-  @override
-  void onInit() {
-    final appController = Get.find<AppController>();
-    user = appController.user;
-    super.onInit();
-  }
 
   void setRxActiveNoti() {
     rxActiveNoti.value = !rxActiveNoti.value;
@@ -48,11 +40,13 @@ class ProfileController extends CoreController {
           onCrop: (image) async {
             final file =
                 await ImageCompress.compressedFileFunc(image, 'avatar.png');
+            startLoading();
             final res = await _userUsecase.uploadAvatar(context, file);
             if (res != null) {
-              user = res;
+              user.value = res;
               Get.find<AppController>().user = res;
             }
+            finishLoading();
           },
           width: 446,
           height: 446,
@@ -72,11 +66,13 @@ class ProfileController extends CoreController {
             onCrop: (image) async {
               final file =
                   await ImageCompress.compressedFileFunc(image, 'avatar.png');
+              startLoading();
               final res = await _userUsecase.uploadAvatar(context, file);
               if (res != null) {
-                user = res;
+                user.value = res;
                 Get.find<AppController>().user = res;
               }
+              finishLoading();
             },
             width: 446,
             height: 446),

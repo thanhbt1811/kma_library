@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/data/api_constans.dart';
 import 'package:getx_base_code/domain/models/base_response.dart';
@@ -18,15 +15,12 @@ class UserRepository {
     );
   }
 
-  Future<BaseResponse> updateAvatar(String auhtor, File avatar) async {
+  Future<BaseResponse> updateAvatar(
+      String auhtor, Map<String, dynamic> avatar) async {
     return _apiClient.request(
         method: NetworkMethod.put,
         path: ApiConstants.avatar,
         basicAuthen: auhtor,
-        formData: {
-          ArgumentConstants.thumbnail: await MultipartFile.fromFile(
-            avatar.path,
-          )
-        });
+        formData: avatar);
   }
 }

@@ -58,7 +58,7 @@ class HomeScreen extends GetView<HomeController> {
               child: Obx(() {
                 return AppRefreshWidget(
                   enableLoadMore: controller.hasLoadMore.value,
-                  onRefresh: controller.onRefresh,
+                  onRefresh: () => controller.onRefresh(context),
                   onLoadMore: controller.onLoadmore,
                   controller: controller.refreshController,
                   footer: AppLoadingWidget(

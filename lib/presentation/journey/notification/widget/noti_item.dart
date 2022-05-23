@@ -25,24 +25,29 @@ class NotiItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Ngày ${dateFormatter(FormatConstants.formatddMMyyyyy, noti.sentDate)}',
-                style:
-                    ThemeText.subtitle2.copyWith(fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                height: AppDimens.height_12,
-              ),
-              Text(
-                noti.content,
-                style:
-                    ThemeText.subtitle2.copyWith(fontWeight: FontWeight.w400),
-              )
-            ],
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Ngày ${dateFormatter(FormatConstants.formatddMMyyyyy, noti.sentDate)}',
+                  style:
+                      ThemeText.subtitle2.copyWith(fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: AppDimens.height_12,
+                ),
+                Text(
+                  noti.content,
+                  style:
+                      ThemeText.subtitle2.copyWith(fontWeight: FontWeight.w400),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            width: AppDimens.width_16,
           ),
           AppTouchable(
             onPressed: onDelete,

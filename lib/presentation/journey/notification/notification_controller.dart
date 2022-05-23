@@ -4,7 +4,6 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/domain/models/notification_model.dart';
 import 'package:getx_base_code/domain/usecases/notification_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
-import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class NotificationController extends CoreController {

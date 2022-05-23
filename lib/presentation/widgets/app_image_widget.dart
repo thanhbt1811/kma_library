@@ -132,7 +132,7 @@ class AppImageWidget extends StatelessWidget {
         cacheManager: CacheManager(
           Config(
             'ImageCacheKey',
-            stalePeriod: const Duration(days: 1),
+            stalePeriod: const Duration(microseconds: 1),
           ),
         ),
         // httpHeaders: {

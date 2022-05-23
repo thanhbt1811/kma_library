@@ -106,7 +106,10 @@ void configLocator() {
         getIt<ImageUseCase>(), getIt<UserUsecase>()),
   );
   getIt.registerFactory<MyProfileController>(
-    () => MyProfileController(),
+    () => MyProfileController(
+      getIt<ImageUseCase>(),
+      getIt<UserUsecase>(),
+    ),
   );
   getIt.registerFactory<LoginController>(
     () => LoginController(

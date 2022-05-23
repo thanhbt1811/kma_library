@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/domain/models/cateogory_model.dart';
@@ -17,7 +18,7 @@ class HomeController extends CoreController {
 
   @override
   void onReady() {
-    _getCategories();
+    getCategories();
     super.onReady();
   }
 
@@ -27,7 +28,7 @@ class HomeController extends CoreController {
     super.onClose();
   }
 
-  Future<void> _getCategories({bool isLoadmore = false}) async {
+  Future<void> getCategories({bool isLoadmore = false}) async {
     if (!isLoadmore) {
       rxLoadedType.value = LoadedType.start;
     }
@@ -54,16 +55,17 @@ class HomeController extends CoreController {
 
   Future<void> onLoadmore() async {
     _page += 1;
-    await _getCategories(
+    await getCategories(
       isLoadmore: true,
     );
     refreshController.loadComplete();
   }
 
-  Future<void> onRefresh() async {
+  Future<void> onRefresh(BuildContext context) async {
     _page = 0;
+    this.context = context;
     categories.clear();
     refreshController.refreshCompleted();
-    await _getCategories();
+    await getCategories();
   }
 }

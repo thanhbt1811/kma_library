@@ -68,4 +68,17 @@ class BookRepository {
           ArgumentConstants.pageNumber: page
         });
   }
+
+  Future<BaseResponse> getBookInTerm(
+      String author, int term, int page, int size) async {
+    return _apiClient.request(
+        path: ApiConstants.bookInTerm,
+        method: NetworkMethod.get,
+        basicAuthen: author,
+        queryParameters: {
+          ArgumentConstants.term: term,
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        });
+  }
 }

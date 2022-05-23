@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/common/utils/comon_utils.dart';
 import 'package:getx_base_code/presentation/journey/profile/my_profile/my_profile_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/widget/avatar_widget.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
+import 'package:getx_base_code/presentation/widgets/app_image_picker.dart';
 import 'package:getx_base_code/presentation/widgets/app_scaffold.dart';
 import 'package:getx_base_code/presentation/widgets/appbar_widget.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
@@ -13,6 +15,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.context = context;
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
@@ -42,7 +45,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                   child: Column(
                     children: [
                       AppTextFieldWidget(
-                        hintText: controller.user.name,
+                        hintText: controller.user.value.name,
                         shadowColor: AppColors.black.withOpacity(0.12),
                         readOnly: true,
                         elevation: 6.0,
@@ -56,7 +59,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                         height: AppDimens.height_16,
                       ),
                       AppTextFieldWidget(
-                        hintText: controller.user.studentIdenitify,
+                        hintText: controller.user.value.studentIdenitify,
                         shadowColor: AppColors.black.withOpacity(0.12),
                         readOnly: true,
                         elevation: 6.0,
@@ -70,7 +73,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                         height: AppDimens.height_16,
                       ),
                       AppTextFieldWidget(
-                        hintText: controller.user.email,
+                        hintText: controller.user.value.email,
                         shadowColor: AppColors.black.withOpacity(0.12),
                         readOnly: true,
                         elevation: 6.0,
@@ -84,7 +87,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
                         height: AppDimens.height_16,
                       ),
                       AppTextFieldWidget(
-                        hintText: controller.user.phone,
+                        hintText: controller.user.value.phone,
                         shadowColor: AppColors.black.withOpacity(0.12),
                         readOnly: true,
                         elevation: 6.0,
@@ -103,12 +106,42 @@ class MyProfileScreen extends GetView<MyProfileController> {
           Container(
             padding: EdgeInsets.only(top: AppDimens.height_20),
             alignment: Alignment.topCenter,
-            child: AvatarWidget(
-              path: controller.user.avatar ?? ImageConstants.icDefaultAvatar,
-            ),
+            child: Obx(() {
+              if (controller.rxLoadedType.value == LoadedType.start) {
+                return Container(
+                    height: AppDimens.height_120,
+                    width: AppDimens.height_120,
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
+                    child: const AppLoadingWidget(
+                      color: AppColors.primary,
+                    ));
+              } else {
+                return AvatarWidget(
+                  path: controller.user.value.avatar,
+                  updateAvatar: () => _updateAvatar(context),
+                );
+              }
+            }),
           )
         ],
       ),
     );
+  }
+
+  void _updateAvatar(BuildContext context) {
+    CommonUtils.showBottomSheet(
+      context: context,
+      body: AppImagePicker(onCamera: _onCamera, onGallery: _onGallery),
+    );
+  }
+
+  void _onCamera() {
+    controller.openCamera();
+    Get.back();
+  }
+
+  void _onGallery() {
+    controller.openGallery();
+    Get.back();
   }
 }

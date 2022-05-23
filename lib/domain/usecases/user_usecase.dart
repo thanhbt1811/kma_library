@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/common/config/network/session_data.dart';
@@ -23,11 +24,14 @@ class UserUsecase {
   }
 
   Future<UserModel?> uploadAvatar(BuildContext context, File avatar) async {
+    final Map<String, dynamic> request = {
+      ArgumentConstants.thumbnail: await MultipartFile.fromFile(avatar.path),
+    };
     final response = await requestApi(
-        () => _userRepository.updateAvatar(SessionData.authToken, avatar),
+        () => _userRepository.updateAvatar(SessionData.authToken, request),
         context);
     if (response.result ?? false) {
-      return UserModel.fromJson(response.data['data']);
+      return UserModel.fromJson(response.data);
     }
     return null;
   }
