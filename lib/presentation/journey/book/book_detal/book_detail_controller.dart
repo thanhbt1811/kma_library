@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/domain/models/book_model.dart';
@@ -5,10 +6,9 @@ import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class BookDetailController extends CoreController {
-  final RefreshController refreshController = RefreshController();
+  final ScrollController scrollController = ScrollController();
   final BookUsecase _bookUsecase;
   late BookModel book;
   RxList<BookModel> books = <BookModel>[].obs;
@@ -17,13 +17,26 @@ class BookDetailController extends CoreController {
   RxBool hasLoadMore = true.obs;
   RxBool activeButton = false.obs;
   Rx<LoadedType> bookListLoading = LoadedType.finish.obs;
+  RxBool loadmoring = false.obs;
 
   BookDetailController(this._bookUsecase);
   @override
   void onInit() {
     book = Get.arguments[ArgumentConstants.book];
     activeButton.value = book.quantity != 0;
+    scrollController.addListener(_scrollListener);
     super.onInit();
+  }
+
+  void _scrollListener() {
+    if (scrollController.position.extentAfter >=
+        scrollController.position.maxScrollExtent) {
+      onLoadmore();
+    }
+    if (scrollController.position.extentBefore <=
+        scrollController.position.minScrollExtent) {
+      onRefresh();
+    }
   }
 
   @override
@@ -40,13 +53,12 @@ class BookDetailController extends CoreController {
         await _bookUsecase.getBookInTerm(context, book.term, _page, _pageSize);
     if (!isLoadmore) {
       bookListLoading.value = LoadedType.finish;
-    } else {
-      refreshController.refreshCompleted();
     }
 
     if (res.isNotEmpty) {
       if (isLoadmore) {
         books.addAll(res);
+        loadmoring.value = false;
       } else {
         books.value = res;
       }
@@ -63,13 +75,11 @@ class BookDetailController extends CoreController {
     await _getBooks(
       isLoadmore: true,
     );
-    refreshController.loadComplete();
   }
 
   Future<void> onRefresh() async {
     _page = 0;
     books.clear();
-    refreshController.refreshCompleted();
     await _getBooks();
   }
 

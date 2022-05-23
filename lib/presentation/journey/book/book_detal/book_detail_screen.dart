@@ -87,7 +87,8 @@ class BookDetailScreen extends GetView<BookDetailController> {
                   Expanded(
                     child: Obx(
                       () {
-                        if (controller.rxLoadedType.value == LoadedType.start) {
+                        if (controller.bookListLoading.value ==
+                            LoadedType.start) {
                           return Shimmer.fromColors(
                             baseColor: AppColors.grey200!,
                             highlightColor: AppColors.grey100!,
@@ -125,6 +126,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
                           return SizedBox(
                             height: AppDimens.height_120,
                             child: ListView.builder(
+                                controller: controller.scrollController,
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
                                 padding: EdgeInsets.symmetric(
