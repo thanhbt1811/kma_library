@@ -1,14 +1,19 @@
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/common/extensions/calender_extensions.dart';
 import 'package:getx_base_code/domain/models/hire_model.dart';
 import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
+import 'package:getx_base_code/presentation/widgets/snack_bar/app_snack_bar.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HistoryController extends CoreController {
   final BookUsecase _bookUsecase;
   final RefreshController refreshController = RefreshController();
   RxList<HireModel> hirings = <HireModel>[].obs;
+  RxList<String> returnedBookId = <String>[].obs;
+  Rx<Calender> rxCalender = Calender.morning.obs;
+  Rx<DateTime> rxDate = DateTime.now().obs;
   final int _pageSize = 10;
   int _page = 0;
   RxBool hasLoadMore = true.obs;
@@ -65,5 +70,20 @@ class HistoryController extends CoreController {
     hirings.clear();
     refreshController.refreshCompleted();
     await _getHiringBook();
+  }
+
+  Future<void> returnedBook() async {
+    startLoading();
+    final date = rxDate.value;
+    final estaimationHiredDate = DateTime(date.year, date.month, date.day,
+        rxCalender.value.time.hour, rxCalender.value.time.minute);
+    final res = await _bookUsecase.estaimateReturnDate(
+        context, estaimationHiredDate, returnedBookId);
+    if (res) {
+      onRefresh();
+      showTopSnackBar(context,
+          message: 'Đặt lịch trả sách thành công', type: SnackBarType.done);
+    }
+    finishLoading();
   }
 }

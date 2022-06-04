@@ -141,4 +141,13 @@ class BookUsecase {
     }
     return hireList;
   }
+
+  Future<bool> estaimateReturnDate(BuildContext context,
+      DateTime estaimateReturnDate, List<String> returnedId) async {
+    final res = await requestApi(
+        () => _bookRepository.returnedBook(SessionData.authToken,
+            estaimateReturnDate.toIso8601String(), returnedId),
+        context);
+    return res.result ?? false;
+  }
 }

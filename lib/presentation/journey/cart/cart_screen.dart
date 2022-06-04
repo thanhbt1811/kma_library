@@ -67,9 +67,11 @@ class CartScreen extends GetView<CartController> {
                   final book = books[index];
                   return HireItem(
                     hire: book,
+                    errorMessage: "Chỉ có thể mượn tối đa 7 quyển sách",
+                    currentLenght: controller.hireList.length,
                     onLongPress: (value) {
                       if (value) {
-                        controller.hireList.add(book.id);
+                        controller.addHireBook(book.id);
                       } else {
                         controller.hireList.remove(book.id);
                       }
@@ -85,8 +87,9 @@ class CartScreen extends GetView<CartController> {
             Obx(
               () => AppButton(
                 title: 'Đặt lịch',
+                loaded: controller.rxLoadedType.value,
                 onPressed: controller.hireList.isNotEmpty
-                    ? () => hiringBook(context)
+                    ? () => _hiringBook(context)
                     : null,
               ),
             ),
@@ -99,7 +102,24 @@ class CartScreen extends GetView<CartController> {
     }
   }
 
-  void hiringBook(BuildContext context) {
-    CommonUtils.showAppDialog(context: context, body: const HireWidget());
+  void _hiringBook(BuildContext context) {
+    CommonUtils.showAppDialog(
+        context: context,
+        body: Obx(
+          () => HireWidget(
+            calender: controller.rxCalender.value,
+            currentDate: controller.hireDate.value,
+            onDone: () {
+              Get.back();
+              controller.hireBook();
+            },
+            onSelectCalender: (calender) {
+              controller.rxCalender.value = calender;
+            },
+            onSelectDate: (date) {
+              controller.hireDate.value = date;
+            },
+          ),
+        ));
   }
 }

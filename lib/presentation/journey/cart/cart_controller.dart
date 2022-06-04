@@ -41,6 +41,14 @@ class CartController extends CoreController {
     refreshController.loadComplete();
   }
 
+  void addHireBook(String id) {
+    if (hireList.length >= 5) {
+      showTopSnackBar(context, message: 'Chỉ có thể mượn tối đa 7 quyển sách');
+    } else {
+      hireList.add(id);
+    }
+  }
+
   Future<void> _getBook({
     bool isLoadmore = false,
   }) async {
@@ -91,7 +99,6 @@ class CartController extends CoreController {
       onRefresh(context);
       showTopSnackBar(context,
           message: 'Đặt lịch mượn sách thành công', type: SnackBarType.done);
-      Get.back();
     }
     finishLoading();
   }

@@ -13,4 +13,5 @@ class ArgumentConstants {
   static const String thumbnail = 'thumbnail';
   static const String term = 'term';
   static const String estaimatedHiredDate = "estaimatedHiredDate";
+  static const String estaimatedReturnDate = "estaimatedReturnDate";
 }

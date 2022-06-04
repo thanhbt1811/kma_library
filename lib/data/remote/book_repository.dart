@@ -118,4 +118,17 @@ class BookRepository {
         basicAuthen: author);
     return res;
   }
+
+  Future<BaseResponse> returnedBook(String author, String estaimatedReturnDate,
+      List<String> returnIds) async {
+    final res = await _apiClient.request(
+        path: ApiConstants.estaimateReturnDate,
+        queryParameters: {
+          ArgumentConstants.estaimatedReturnDate: estaimatedReturnDate
+        },
+        data: jsonEncode(returnIds),
+        method: NetworkMethod.post,
+        basicAuthen: author);
+    return res;
+  }
 }

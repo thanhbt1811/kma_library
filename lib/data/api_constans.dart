@@ -12,6 +12,7 @@ class ApiConstants {
   static const String returnedBook = '/Books/returned-books';
   static const String bookInTerm = '/Books/book-in-term';
   static const String estimatingBook = '/Books/estimating-books';
+  static const String estaimateReturnDate = '/Books/estimate-return-date';
 
   ///User
   static const String getMe = '/Authentication/get-me';

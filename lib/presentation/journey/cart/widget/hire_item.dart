@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/domain/models/hire_model.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
-import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
+import 'package:getx_base_code/presentation/widgets/export.dart';
 
 class HireItem extends StatefulWidget {
   final HireModel hire;
+  final int currentLenght;
+  final String errorMessage;
   final Function() onPressed;
   final Function(bool)? onLongPress;
   const HireItem({
     Key? key,
     required this.hire,
+    required this.currentLenght,
     required this.onPressed,
+    required this.errorMessage,
     this.onLongPress,
   }) : super(key: key);
 
@@ -28,7 +32,10 @@ class _HireItemState extends State<HireItem> {
       onTap: widget.onPressed,
       onLongPress: () {
         setState(() {
-          _isSelected = !_isSelected;
+          _isSelected = (!_isSelected) && widget.currentLenght < 7;
+          if (widget.currentLenght >= 5) {
+            showTopSnackBar(context, message: widget.errorMessage);
+          }
           if (widget.onLongPress != null) {
             widget.onLongPress!(_isSelected);
           }

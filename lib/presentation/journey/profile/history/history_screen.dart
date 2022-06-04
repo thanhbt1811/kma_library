@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/common/utils/comon_utils.dart';
+import 'package:getx_base_code/presentation/journey/cart/widget/hire_widget.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/widget/history_item.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
@@ -31,19 +35,61 @@ class HistoryScreen extends GetView<HistoryController> {
         ),
       ),
       backgroundColor: AppColors.white,
-      body: Obx(
-        () => AppRefreshWidget(
-          enableLoadMore: controller.hasLoadMore.value,
-          onRefresh: controller.onRefresh,
-          onLoadMore: controller.onLoadmore,
-          controller: controller.refreshController,
-          child: _buildHistoryList(),
-          footer: AppLoadingWidget(
-            width: AppDimens.height_20,
+      body: Column(
+        children: [
+          Expanded(
+            child: Obx(
+              () => AppRefreshWidget(
+                enableLoadMore: controller.hasLoadMore.value,
+                onRefresh: controller.onRefresh,
+                onLoadMore: controller.onLoadmore,
+                controller: controller.refreshController,
+                child: _buildHistoryList(),
+                footer: AppLoadingWidget(
+                  width: AppDimens.height_20,
+                ),
+              ),
+            ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),
+            child: Obx(
+              () => AppButton(
+                title: 'Đặt lịch',
+                loaded: controller.rxLoadedType.value,
+                onPressed: controller.returnedBookId.isNotEmpty
+                    ? () => _returnBook(context)
+                    : null,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.04,
+          )
+        ],
       ),
     );
+  }
+
+  void _returnBook(BuildContext context) {
+    CommonUtils.showAppDialog(
+        context: context,
+        body: Obx(
+          () => HireWidget(
+            calender: controller.rxCalender.value,
+            currentDate: controller.rxDate.value,
+            onDone: () {
+              Get.back();
+              controller.returnedBook();
+            },
+            onSelectCalender: (calender) {
+              controller.rxCalender.value = calender;
+            },
+            onSelectDate: (date) {
+              controller.rxDate.value = date;
+            },
+          ),
+        ));
   }
 
   Widget _buildHistoryList() {
@@ -60,6 +106,15 @@ class HistoryScreen extends GetView<HistoryController> {
             final hire = hires[index];
             return HistoryItem(
               hire: hire,
+              onLongPress: (value) {
+                if (value) {
+                  controller.returnedBookId.add(hire.id);
+                } else {
+                  controller.returnedBookId.remove(hire.id);
+                }
+              },
+              currentLenght: controller.returnedBookId.length,
+              errorMessage: "Chỉ có thể trả tối đa 7 quyển sách",
             );
           },
           separatorBuilder: (context, index) => SizedBox(

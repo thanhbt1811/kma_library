@@ -5,14 +5,25 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/common/constants/format_constants.dart';
 import 'package:getx_base_code/common/extensions/calender_extensions.dart';
 import 'package:getx_base_code/common/utils/comon_utils.dart';
-import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
 import 'package:getx_base_code/presentation/journey/cart/widget/select_calender_widget.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_date_time_picker.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
 
-class HireWidget extends GetView<CartController> {
-  const HireWidget({Key? key}) : super(key: key);
+class HireWidget extends StatelessWidget {
+  final Function() onDone;
+  final Function(Calender) onSelectCalender;
+  final Function(DateTime) onSelectDate;
+  final DateTime currentDate;
+  final Calender calender;
+  const HireWidget({
+    Key? key,
+    required this.onDone,
+    required this.onSelectCalender,
+    required this.onSelectDate,
+    required this.currentDate,
+    required this.calender,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +55,12 @@ class HireWidget extends GetView<CartController> {
                     ),
                     Expanded(
                       child: InkWell(
-                          onTap: () => _selectCalender(context),
-                          child: Obx(
-                            () => Text(
-                              controller.rxCalender.value.label,
-                              style: ThemeText.subtitle2,
-                            ),
-                          )),
+                        onTap: () => _selectCalender(context),
+                        child: Text(
+                          calender.label,
+                          style: ThemeText.subtitle2,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -73,12 +83,10 @@ class HireWidget extends GetView<CartController> {
                     Expanded(
                       child: InkWell(
                         onTap: () => _selectDate(context),
-                        child: Obx(
-                          () => Text(
-                            dateFormatter(FormatConstants.formatddMMyyyyy,
-                                controller.hireDate.value),
-                            style: ThemeText.subtitle2,
-                          ),
+                        child: Text(
+                          dateFormatter(
+                              FormatConstants.formatddMMyyyyy, currentDate),
+                          style: ThemeText.subtitle2,
                         ),
                       ),
                     ),
@@ -95,9 +103,8 @@ class HireWidget extends GetView<CartController> {
                 children: [
                   Expanded(
                     child: AppButton.flexWidth(
-                      loaded: controller.rxLoadedType.value,
                       title: 'Đặt mượn',
-                      onPressed: controller.hireBook,
+                      onPressed: onDone,
                       width: width,
                     ),
                   ),
@@ -106,7 +113,6 @@ class HireWidget extends GetView<CartController> {
                   ),
                   Expanded(
                     child: AppButton.flexWidth(
-                      loaded: controller.rxLoadedType.value,
                       title: 'Hủy',
                       width: width,
                       backgroundColor: AppColors.red,
@@ -126,10 +132,9 @@ class HireWidget extends GetView<CartController> {
     CommonUtils.showBottomSheet(
         context: context,
         body: AppDateTimePicker(
+            initialDateTime: currentDate,
             mode: CupertinoDatePickerMode.date,
-            onChange: (value) {
-              controller.hireDate.value = value;
-            },
+            onChange: onSelectDate,
             onDone: () {
               Get.back();
             }));
@@ -141,9 +146,9 @@ class HireWidget extends GetView<CartController> {
       body: SelectCalenderWidget(
         onTap: (value) {
           Get.back();
-          controller.rxCalender.value = value;
+          onSelectCalender(value);
         },
-        current: controller.rxCalender.value,
+        current: calender,
       ),
     );
   }
