@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/data/api_constans.dart';
 import 'package:getx_base_code/domain/models/base_response.dart';
@@ -8,7 +10,7 @@ class BookRepository {
   BookRepository(this._apiClient);
 
   Future<BaseResponse> getBooks(
-      String author, int pageNumber, int pageSize, String searchJ) async {
+      String author, int pageNumber, int pageSize, String search) async {
     final response = await _apiClient.request(
       path: ApiConstants.books,
       basicAuthen: author,
@@ -48,7 +50,7 @@ class BookRepository {
 
   Future<BaseResponse> getHiringBook(String author, int page, int size) async {
     return _apiClient.request(
-        path: ApiConstants.hiringBook,
+        path: ApiConstants.hiringBooks,
         method: NetworkMethod.get,
         basicAuthen: author,
         queryParameters: {
@@ -80,5 +82,40 @@ class BookRepository {
           ArgumentConstants.pageSize: size,
           ArgumentConstants.pageNumber: page
         });
+  }
+
+  Future<BaseResponse> hiringBook(
+      String author, String estaimationHiredDate, List<String> books) async {
+    final res = await _apiClient.request(
+        path: ApiConstants.estimatingHireBook,
+        queryParameters: {
+          ArgumentConstants.estaimatedHiredDate: estaimationHiredDate
+        },
+        data: jsonEncode(books),
+        method: NetworkMethod.put,
+        basicAuthen: author);
+    return res;
+  }
+
+  Future<BaseResponse> hireBook(String author, String bookId) async {
+    final res = await _apiClient.request(
+        path: ApiConstants.hireBook,
+        queryParameters: {ArgumentConstants.bookId: bookId},
+        method: NetworkMethod.get,
+        basicAuthen: author);
+    return res;
+  }
+
+  Future<BaseResponse> estimatingBooks(
+      String author, int page, int size) async {
+    final res = await _apiClient.request(
+        path: ApiConstants.estimatingBook,
+        queryParameters: {
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        },
+        method: NetworkMethod.get,
+        basicAuthen: author);
+    return res;
   }
 }

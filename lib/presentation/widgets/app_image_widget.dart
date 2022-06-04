@@ -18,6 +18,7 @@ class AppImageWidget extends StatelessWidget {
   double? loadingSize;
   final bool isBorder;
   final bool isCircle;
+  final Widget? child;
 
   AppImageWidget(
       {Key? key,
@@ -29,6 +30,7 @@ class AppImageWidget extends StatelessWidget {
       this.height,
       this.loadingSize,
       this.color,
+      this.child,
       this.isCircle = false,
       this.isBorder = false})
       : super(key: key);
@@ -159,6 +161,7 @@ class AppImageWidget extends StatelessWidget {
             ),
             image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
           ),
+          child: child,
         ),
         cacheManager: CacheManager(
           Config(

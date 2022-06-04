@@ -14,21 +14,22 @@ class BookModel {
   final int term;
   final int status;
 
-  BookModel(
-      {required this.id,
-      required this.title,
-      this.subTitle,
-      required this.quantity,
-      this.description,
-      required this.categoryCode,
-      required this.categoryId,
-      required this.thumbnail,
-      required this.pdfFile,
-      required this.createdAt,
-      this.updatedAt,
-      this.deletedAt,
-      required this.term,
-      required this.status});
+  BookModel({
+    required this.id,
+    required this.title,
+    this.subTitle,
+    required this.quantity,
+    this.description,
+    required this.categoryCode,
+    required this.categoryId,
+    required this.thumbnail,
+    required this.pdfFile,
+    required this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    required this.term,
+    required this.status,
+  });
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
     return BookModel(
@@ -48,7 +49,8 @@ class BookModel {
             ? DateTime.parse(json['deletedAt'])
             : null,
         term: json['term'],
-        status: json['status']);
+        status: json['status'],
+        subTitle: json['subTitle']);
   }
   Map<String, dynamic> toJson() {
     return {

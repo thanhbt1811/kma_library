@@ -95,3 +95,6 @@ Future<BaseResponse> requestApi(
 String dateFormatter(String format, DateTime value) {
   return DateFormat(format, 'vi').format(value);
 }
+
+DateTime get _now => DateTime.now();
+DateTime get tomorrow => DateTime(_now.year, _now.month, _now.day + 1);

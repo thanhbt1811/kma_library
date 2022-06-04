@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/common/utils/comon_utils.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
+import 'package:getx_base_code/presentation/journey/cart/widget/hire_item.dart';
+import 'package:getx_base_code/presentation/journey/cart/widget/hire_widget.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_refresh_widget.dart';
@@ -26,14 +29,16 @@ class CartScreen extends GetView<CartController> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),
-        child: AppRefreshWidget(
-          enableLoadMore: controller.hasLoadMore.value,
-          onRefresh: controller.onRefresh,
-          onLoadMore: controller.onLoadmore,
-          controller: controller.refreshController,
-          child: _buildBookList(context),
-          footer: AppLoadingWidget(
-            width: AppDimens.height_20,
+        child: Obx(
+          () => AppRefreshWidget(
+            enableLoadMore: controller.hasLoadMore.value,
+            onRefresh: () => controller.onRefresh(context),
+            onLoadMore: controller.onLoadmore,
+            controller: controller.refreshController,
+            child: _buildBookList(context),
+            footer: AppLoadingWidget(
+              width: AppDimens.height_20,
+            ),
           ),
         ),
       ),
@@ -60,8 +65,15 @@ class CartScreen extends GetView<CartController> {
                 shrinkWrap: true,
                 children: List.generate(length, (index) {
                   final book = books[index];
-                  return BookWidget(
-                    book: book,
+                  return HireItem(
+                    hire: book,
+                    onLongPress: (value) {
+                      if (value) {
+                        controller.hireList.add(book.id);
+                      } else {
+                        controller.hireList.remove(book.id);
+                      }
+                    },
                     onPressed: () {
                       Get.toNamed(AppRoutes.bookDetail,
                           arguments: {ArgumentConstants.book: book});
@@ -70,9 +82,13 @@ class CartScreen extends GetView<CartController> {
                 }),
               ),
             ),
-            AppButton(
-              title: 'Đặt mượn',
-              onPressed: () {},
+            Obx(
+              () => AppButton(
+                title: 'Đặt lịch',
+                onPressed: controller.hireList.isNotEmpty
+                    ? () => hiringBook(context)
+                    : null,
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.04,
@@ -81,5 +97,9 @@ class CartScreen extends GetView<CartController> {
         );
       }
     }
+  }
+
+  void hiringBook(BuildContext context) {
+    CommonUtils.showAppDialog(context: context, body: const HireWidget());
   }
 }

@@ -15,7 +15,7 @@ class ReadBookScreen extends GetView<ReadBookController> {
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
-          controller.book.title,
+          controller.book.value.title,
           style: ThemeText.headline6
               .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
           textAlign: TextAlign.left,
@@ -27,7 +27,7 @@ class ReadBookScreen extends GetView<ReadBookController> {
       ),
       body: Padding(
         padding: EdgeInsets.all(AppDimens.height_16),
-        child: SfPdfViewer.network(controller.book.pdfFile),
+        child: SfPdfViewer.network(controller.book.value.pdfFile),
       ),
     );
   }

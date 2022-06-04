@@ -22,39 +22,40 @@ class CategoryItem extends StatelessWidget {
           ),
         ),
         padding: EdgeInsets.all(AppDimens.space_12),
-        child: Stack(
-          children: [
-            AppImageWidget(
-              fit: BoxFit.cover,
-              height: 155.h,
-              isBorder: true,
-              width: double.infinity,
-              path: category.thumbnail,
+        child: AppImageWidget(
+          fit: BoxFit.cover,
+          height: 155.h,
+          isBorder: true,
+          width: double.infinity,
+          path: category.thumbnail,
+          child: Padding(
+            padding: EdgeInsets.all(AppDimens.space_12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  category.categoryName,
+                  style: ThemeText.subtitle1.copyWith(color: AppColors.white),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _geStringtTotal(category.totalBook),
+                      style:
+                          ThemeText.subtitle2.copyWith(color: AppColors.white),
+                    ),
+                    Text(
+                      'Sách',
+                      style:
+                          ThemeText.subtitle2.copyWith(color: AppColors.white),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.all(AppDimens.space_12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    category.categoryName,
-                    style: ThemeText.subtitle1.copyWith(color: AppColors.white),
-                  ),
-                  SizedBox(
-                    height: AppDimens.height_80,
-                  ),
-                  Text(
-                    _geStringtTotal(category.totalBook),
-                    style: ThemeText.subtitle2.copyWith(color: AppColors.white),
-                  ),
-                  Text(
-                    'Sách',
-                    style: ThemeText.subtitle2.copyWith(color: AppColors.white),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

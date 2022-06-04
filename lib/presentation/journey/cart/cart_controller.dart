@@ -1,16 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:getx_base_code/common/constants/constants_export.dart';
+import 'package:getx_base_code/common/extensions/calender_extensions.dart';
+import 'package:getx_base_code/domain/models/hire_model.dart';
 import 'package:getx_base_code/domain/usecases/book_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/core_controller.dart';
+import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CartController extends CoreController {
   final BookUsecase _bookUsecase;
 
   final RefreshController refreshController = RefreshController();
-  final RxList rxBooks = [].obs;
+  final RxList<HireModel> rxBooks = <HireModel>[].obs;
   final int _pageSize = 10;
   int _page = 0;
   RxBool hasLoadMore = true.obs;
+  Rx<Calender> rxCalender = Calender.morning.obs;
+  Rx<DateTime> hireDate = DateTime.now().obs;
+  final RxList<String> hireList = <String>[].obs;
 
   CartController(this._bookUsecase);
 
@@ -22,7 +30,6 @@ class CartController extends CoreController {
 
   void getCartList() {
     startLoading();
-    rxBooks.value = _bookUsecase.getCartList();
     finishLoading();
   }
 
@@ -40,13 +47,11 @@ class CartController extends CoreController {
     if (!isLoadmore) {
       startLoading();
     }
-    // final res = await _bookUsecase.getBooksWithCategory(
-    //   context,
-    //   _categoryId,
-    //   _page,
-    //   _pageSize,
-    // );
-    final res = [];
+    final res = await _bookUsecase.getEstimatingBook(
+      context,
+      _page,
+      _pageSize,
+    );
     if (!isLoadmore) {
       finishLoading();
     } else {
@@ -67,10 +72,27 @@ class CartController extends CoreController {
     }
   }
 
-  Future<void> onRefresh() async {
+  Future<void> onRefresh(BuildContext context) async {
     _page = 0;
+    this.context = context;
     rxBooks.clear();
     refreshController.refreshCompleted();
     await _getBook();
+  }
+
+  Future<void> hireBook() async {
+    startLoading();
+    final date = hireDate.value;
+    final estaimationHiredDate = DateTime(date.year, date.month, date.day,
+        rxCalender.value.time.hour, rxCalender.value.time.minute);
+    final res =
+        await _bookUsecase.hiringBook(context, estaimationHiredDate, hireList);
+    if (res) {
+      onRefresh(context);
+      showTopSnackBar(context,
+          message: 'Đặt lịch mượn sách thành công', type: SnackBarType.done);
+      Get.back();
+    }
+    finishLoading();
   }
 }

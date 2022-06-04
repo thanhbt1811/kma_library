@@ -27,7 +27,7 @@ class LoginScreen extends GetView<LoginController> {
               children: [
                 SafeArea(child: AppImageWidget(path: ImageConstants.kmaLogo)),
                 Text(
-                  'Xin Chào',
+                  'Thư viện KMA',
                   style: ThemeText.headline3.copyWith(
                       color: AppColors.black, fontWeight: FontWeight.w700),
                 ),

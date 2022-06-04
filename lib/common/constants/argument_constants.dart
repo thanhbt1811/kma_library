@@ -8,7 +8,9 @@ class ArgumentConstants {
   static const String categoryId = 'category_id';
   static const String categoryName = 'category_Name';
   static const String book = 'book';
+  static const String bookId = 'bookId';
   static const String searchKey = 'searchKey';
   static const String thumbnail = 'thumbnail';
   static const String term = 'term';
+  static const String estaimatedHiredDate = "estaimatedHiredDate";
 }

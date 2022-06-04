@@ -3,7 +3,6 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/domain/models/book_model.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
-import 'package:getx_base_code/presentation/widgets/app_touchable.dart';
 
 class BookWidget extends StatelessWidget {
   final bool showStar;
@@ -17,11 +16,10 @@ class BookWidget extends StatelessWidget {
       this.showRecycleBin = false,
       this.showStar = false})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return AppTouchable(
-      onPressed: onPressed,
+    return GestureDetector(
+      onTap: onPressed,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -33,27 +31,30 @@ class BookWidget extends StatelessWidget {
                 path: book.thumbnail,
                 isBorder: true,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppDimens.height_12)
-                    .copyWith(bottom: AppDimens.height_12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Visibility(
-                      visible: showStar,
-                      child: AppImageWidget(
-                        path: ImageConstants.icCart,
-                        color: AppColors.second,
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppDimens.height_12)
+                      .copyWith(bottom: AppDimens.height_12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Visibility(
+                        visible: showStar,
+                        child: AppImageWidget(
+                          path: ImageConstants.icCart,
+                          color: AppColors.second,
+                        ),
                       ),
-                    ),
-                    Visibility(
-                      visible: showRecycleBin,
-                      child: AppImageWidget(
-                        path: ImageConstants.icRecycleBin,
-                        color: AppColors.red,
+                      Visibility(
+                        visible: showRecycleBin,
+                        child: AppImageWidget(
+                          path: ImageConstants.icRecycleBin,
+                          color: AppColors.red,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

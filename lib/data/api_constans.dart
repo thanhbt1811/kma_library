@@ -5,9 +5,13 @@ class ApiConstants {
 
   ///Book
   static const String books = '/Books/search-books';
-  static const String hiringBook = '/Books/hiring-books';
+  static const String hiringBook = '/Books/hire-books';
+  static const String estimatingHireBook = 'Books/estimate-hire-date';
+  static const String hireBook = '/Books/hire-book';
+  static const String hiringBooks = '/Books/hiring-books';
   static const String returnedBook = '/Books/returned-books';
   static const String bookInTerm = '/Books/book-in-term';
+  static const String estimatingBook = '/Books/estimating-books';
 
   ///User
   static const String getMe = '/Authentication/get-me';

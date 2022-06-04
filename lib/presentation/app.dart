@@ -15,6 +15,7 @@ class App extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: () {
         return GetMaterialApp(
+          smartManagement: SmartManagement.onlyBuilder,
           debugShowCheckedModeBanner: false,
           initialBinding: AppBinding(),
           initialRoute: AppRoutes.splash,

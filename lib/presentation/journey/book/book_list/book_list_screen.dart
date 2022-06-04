@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/constants/constants_export.dart';
+import 'package:getx_base_code/common/injector/locators/app_locator.dart';
 import 'package:getx_base_code/common/utils/debounce.dart';
+import 'package:getx_base_code/domain/usecases/book_usecase.dart';
+import 'package:getx_base_code/presentation/journey/book/book_detail/book_detail_controller.dart';
+import 'package:getx_base_code/presentation/journey/book/book_detail/book_detail_screen.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
@@ -95,8 +99,15 @@ class BookListScreen extends GetView<BookListController> {
             return BookWidget(
               book: book,
               onPressed: () {
-                Get.toNamed(AppRoutes.bookDetail,
-                    arguments: {ArgumentConstants.book: book});
+                final newController = BookDetailController(
+                  getIt<BookUsecase>(),
+                  book.obs,
+                );
+                Get.lazyReplace(() => newController);
+                Get.to(
+                  const BookDetailScreen(),
+                  preventDuplicates: false,
+                );
               },
             );
           }),

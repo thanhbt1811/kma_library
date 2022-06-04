@@ -25,8 +25,7 @@ class CategoryModel {
         id: json['id'],
         categoryCode: json['categoryCode'],
         // thumbnail: json['thumbnail'],
-        thumbnail:
-            'https://book-management-storage.s3.us-east-1.amazonaws.com/thumbnails/e48cbdb2-138c-4556-e42a-08da31ee11ec/272588839_703280581054845_949684622302582365_n.jpg',
+        thumbnail: json['thumbnail'],
         categoryName: json['categoryName'],
         totalBook: json['totalBook'],
         createAt: DateTime.parse(json['createdAt']),

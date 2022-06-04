@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/common/config/network/session_data.dart';
-import 'package:getx_base_code/data/local_repository.dart';
 import 'package:getx_base_code/data/remote/book_repository.dart';
 import 'package:getx_base_code/domain/models/book_model.dart';
 import 'package:getx_base_code/domain/models/hire_model.dart';
 
 class BookUsecase {
   final BookRepository _bookRepository;
-  final LocalRepository _localRepository;
 
-  BookUsecase(this._bookRepository, this._localRepository);
+  BookUsecase(this._bookRepository);
 
   Future<List<BookModel>> getBooks(BuildContext context, int pageNumber,
       int pageSize, String searchKey) async {
@@ -54,14 +52,6 @@ class BookUsecase {
       );
     }
     return books;
-  }
-
-  Future<void> addToCart(BookModel book) async {
-    await _localRepository.setBookToCart(book);
-  }
-
-  List<BookModel> getCartList() {
-    return _localRepository.getBook();
   }
 
   Future<List<HireModel>> getHiringBook(
@@ -114,5 +104,41 @@ class BookUsecase {
       }
     }
     return books;
+  }
+
+  Future<bool> hiringBook(BuildContext context, DateTime estaimationHiredDate,
+      List<String> hireId) async {
+    final res = await requestApi(
+        () => _bookRepository.hiringBook(SessionData.authToken,
+            estaimationHiredDate.toIso8601String(), hireId),
+        context);
+    return res.result ?? false;
+  }
+
+  Future<bool> hireBook(BuildContext context, String bookId) async {
+    final res = await requestApi(
+        () => _bookRepository.hireBook(SessionData.authToken, bookId), context);
+    if (res.result ?? false) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<List<HireModel>> getEstimatingBook(
+      BuildContext context, int page, int size) async {
+    final hireList = <HireModel>[];
+    final res = await requestApi(
+        () =>
+            _bookRepository.estimatingBooks(SessionData.authToken, page, size),
+        context);
+    if (res.result ?? false) {
+      for (final data in res.data['data']) {
+        hireList.add(
+          HireModel.fromJson(data),
+        );
+      }
+    }
+    return hireList;
   }
 }

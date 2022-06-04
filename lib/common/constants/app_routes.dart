@@ -15,5 +15,6 @@ class AppRoutes {
   ///Book
   static const String bookList = '/book/list';
   static const String bookDetail = '/book/detail';
+  static const String bookSuggestion = '/book/suggestion';
   static const String overViewBook = '/book/overview';
 }

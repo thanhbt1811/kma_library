@@ -17,9 +17,27 @@ class AppButton extends StatelessWidget {
     this.loaded = LoadedType.finish,
     this.backgroundColor = AppColors.second,
     this.titleColor = AppColors.white,
-    this.width,
+    this.width = double.infinity,
     this.onPressed,
   }) : super(key: key);
+  factory AppButton.flexWidth({
+    Key? key,
+    required String title,
+    double? width,
+    Color? backgroundColor = AppColors.second,
+    Color? titleColor = AppColors.white,
+    Function()? onPressed,
+    LoadedType loaded = LoadedType.finish,
+  }) =>
+      AppButton(
+        key: key,
+        title: title,
+        width: width,
+        backgroundColor: backgroundColor,
+        titleColor: titleColor,
+        onPressed: onPressed,
+        loaded: loaded,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +45,7 @@ class AppButton extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: width ?? double.infinity,
+          width: width,
           height: AppDimens.height_52,
           child: TextButton(
             onPressed: () {

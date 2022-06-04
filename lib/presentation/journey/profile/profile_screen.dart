@@ -47,7 +47,7 @@ class ProfileScreen extends GetView<ProfileController> {
                         height: 1,
                       ),
                       MenuItemWidget(
-                          title: 'Sách đã mượn',
+                          title: 'Sách đang mượn',
                           onTap: () => Get.toNamed(AppRoutes.history)),
                       const Divider(
                         height: 1,

@@ -7,3 +7,4 @@ enum NetworkMethod { get, post, delete, path, put }
 enum ErrorEnum {
   unauthorized,
 }
+enum Calender { morning, afternoon }
