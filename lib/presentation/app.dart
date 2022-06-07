@@ -31,6 +31,7 @@ class App extends StatelessWidget {
           fallbackLocale: appSupportedLocales.first,
           theme: appTheme,
           builder: (context, child) {
+            var a = Navigator();
             return GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {

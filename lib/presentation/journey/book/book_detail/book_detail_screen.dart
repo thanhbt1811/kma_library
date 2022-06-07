@@ -39,11 +39,14 @@ class BookDetailScreen extends GetView<BookDetailController> {
                     height: AppDimens.height_16,
                   ),
                   AppTouchable(
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.overViewBook, arguments: {
-                        ArgumentConstants.book: controller.book.value
-                      });
-                    },
+                    onPressed:
+                        controller.book.value.categoryCode == 'Schthamkho'
+                            ? () {
+                                Get.toNamed(AppRoutes.overViewBook, arguments: {
+                                  ArgumentConstants.book: controller.book.value
+                                });
+                              }
+                            : null,
                     child: AppImageWidget(
                       path: controller.book.value.thumbnail,
                       height: MediaQuery.of(context).size.height * 0.3,

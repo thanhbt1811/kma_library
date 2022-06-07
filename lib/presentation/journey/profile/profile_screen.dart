@@ -58,6 +58,18 @@ class ProfileScreen extends GetView<ProfileController> {
                       const Divider(
                         height: 1,
                       ),
+                      MenuItemWidget(
+                          title: 'Sách đang chờ mượn',
+                          onTap: () => Get.toNamed(AppRoutes.estimatingBook)),
+                      const Divider(
+                        height: 1,
+                      ),
+                      MenuItemWidget(
+                          title: 'Sách đang chờ trả',
+                          onTap: () => Get.toNamed(AppRoutes.estimateReturn)),
+                      const Divider(
+                        height: 1,
+                      ),
                       // MenuItemWidget(
                       //   title: 'Thông báo',
                       //   onTap: () {},

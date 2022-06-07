@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -127,6 +128,7 @@ class ApiClient {
         );
       }
     } on DioError catch (e) {
+      log('DIO-Error message: ${e.message}');
       if (e.response != null) {
         dynamic dataResultError = e.response!.data;
         String errorMessage = dataResultError != null &&

@@ -85,7 +85,7 @@ Future<BaseResponse> requestApi(
           message: ErrorEnum.unauthorized.message, type: SnackBarType.error);
     } else {
       showTopSnackBar(context,
-          message: baseResponse.message ?? StringConstants.defaultErrorMessage,
+          message: baseResponse.data ?? StringConstants.defaultErrorMessage,
           type: SnackBarType.error);
     }
   }

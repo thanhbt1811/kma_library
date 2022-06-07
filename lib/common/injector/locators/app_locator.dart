@@ -19,6 +19,7 @@ import 'package:getx_base_code/domain/usecases/user_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_password_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/login/login_controller.dart';
+import 'package:getx_base_code/presentation/journey/auth/news/news_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/read_book/read_book_controller.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
@@ -26,6 +27,8 @@ import 'package:getx_base_code/presentation/journey/home/home_controller.dart';
 import 'package:getx_base_code/presentation/journey/main/main_controller.dart';
 import 'package:getx_base_code/presentation/journey/notification/notification_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/change_password/change_password_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/estimate_return_book/estimate_return_book_controller.dart';
+import 'package:getx_base_code/presentation/journey/profile/estimating_book/estimating_book_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/my_profile/my_profile_controller.dart';
 import 'package:getx_base_code/presentation/journey/profile/profile_controller.dart';
@@ -73,6 +76,15 @@ void configLocator() {
   );
   getIt.registerFactory<ReadBookBinding>(
     () => ReadBookBinding(),
+  );
+  getIt.registerFactory<EstimatingBookBindings>(
+    () => EstimatingBookBindings(),
+  );
+  getIt.registerFactory<EstimateReturnBookBindings>(
+    () => EstimateReturnBookBindings(),
+  );
+  getIt.registerFactory<NewsBindings>(
+    () => NewsBindings(),
   );
 
   /// Controllers
@@ -143,6 +155,21 @@ void configLocator() {
   );
   getIt.registerFactory<ReadBookController>(
     () => ReadBookController(),
+  );
+  getIt.registerFactory<EstimatingBookController>(
+    () => EstimatingBookController(
+      getIt<BookUsecase>(),
+    ),
+  );
+  getIt.registerFactory<EstimateReturnBookController>(
+    () => EstimateReturnBookController(
+      getIt<BookUsecase>(),
+    ),
+  );
+  getIt.registerFactory<NewsController>(
+    () => NewsController(
+      getIt<NotificationUsecase>(),
+    ),
   );
 
   /// UseCases

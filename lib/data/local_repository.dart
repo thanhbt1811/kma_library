@@ -23,6 +23,10 @@ class LocalRepository {
         SecureStorageConstants.password, password);
   }
 
+  Future delete() async {
+    await SecureStorageConstants.deleteAll();
+  }
+
   Future<String> getUsername() async {
     return await SecureStorageConstants.getString(
         SecureStorageConstants.username);

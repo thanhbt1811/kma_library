@@ -30,7 +30,7 @@ class _HistoryItemState extends State<HistoryItem> {
     return InkWell(
       onLongPress: () {
         setState(() {
-          _isSelected = (!_isSelected) && widget.currentLenght < 5;
+          _isSelected = (!_isSelected) && widget.currentLenght < 7;
           if (widget.currentLenght >= 5) {
             showTopSnackBar(context, message: widget.errorMessage);
           }
@@ -68,7 +68,7 @@ class _HistoryItemState extends State<HistoryItem> {
                       height: AppDimens.height_8,
                     ),
                     Text(
-                      'Ngày mượn: ',
+                      'Ngày mượn: ${widget.hire.hiredFrom != null ? dateFormatter(FormatConstants.formatddMMyyyyy, widget.hire.hiredFrom!) : ''}',
                       style:
                           ThemeText.bodyText2.copyWith(color: AppColors.grey),
                     ),

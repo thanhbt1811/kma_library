@@ -5,8 +5,6 @@ import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 class AppBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(
-      getIt<AppController>(),
-    );
+    Get.lazyReplace(() => getIt<AppController>(), fenix: true);
   }
 }

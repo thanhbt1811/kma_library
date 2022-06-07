@@ -3,13 +3,9 @@ import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/journey/auth/login/login_controller.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
-import 'package:getx_base_code/presentation/widgets/app_button.dart';
-import 'package:getx_base_code/presentation/widgets/app_image_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_scaffold.dart';
-import 'package:getx_base_code/presentation/widgets/app_touchable.dart';
+import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:getx_base_code/presentation/widgets/keybroad_avoid.dart';
-import 'package:getx_base_code/presentation/widgets/text_field/app_obscure_field_widget.dart';
-import 'package:getx_base_code/presentation/widgets/text_field/app_text_field_widget.dart';
 
 class LoginScreen extends GetView<LoginController> {
   const LoginScreen({Key? key}) : super(key: key);
@@ -25,7 +21,35 @@ class LoginScreen extends GetView<LoginController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SafeArea(child: AppImageWidget(path: ImageConstants.kmaLogo)),
+                Stack(
+                  children: [
+                    SafeArea(
+                        child: Align(
+                            alignment: Alignment.center,
+                            child:
+                                AppImageWidget(path: ImageConstants.kmaLogo))),
+                    Container(
+                      padding: EdgeInsets.only(
+                          right: AppDimens.width_16, top: AppDimens.height_24),
+                      alignment: Alignment.topRight,
+                      child: AppTouchable(
+                        onPressed: () {
+                          Get.toNamed(AppRoutes.news);
+                        },
+                        outlinedBorder: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        padding: EdgeInsets.only(top: AppDimens.height_16),
+                        width: AppDimens.width_40,
+                        height: AppDimens.width_40,
+                        child: AppImageWidget(
+                          path: ImageConstants.icBell,
+                          height: AppDimens.height_24,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Text(
                   'Thư viện KMA',
                   style: ThemeText.headline3.copyWith(
@@ -60,19 +84,6 @@ class LoginScreen extends GetView<LoginController> {
                     ),
                     SizedBox(
                       height: AppDimens.height_16,
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: AppTouchable(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: AppDimens.space_8),
-                        onPressed: () => Get.toNamed(AppRoutes.forgotPassword),
-                        child: Text(
-                          'Quên mật khẩu?',
-                          style: ThemeText.subtitle2
-                              .copyWith(color: AppColors.disableColor),
-                        ),
-                      ),
                     ),
                   ],
                 ),

@@ -122,13 +122,39 @@ class BookRepository {
   Future<BaseResponse> returnedBook(String author, String estaimatedReturnDate,
       List<String> returnIds) async {
     final res = await _apiClient.request(
-        path: ApiConstants.estaimateReturnDate,
+        path: ApiConstants.estimateReturnDate,
         queryParameters: {
           ArgumentConstants.estaimatedReturnDate: estaimatedReturnDate
         },
         data: jsonEncode(returnIds),
         method: NetworkMethod.post,
         basicAuthen: author);
+    return res;
+  }
+
+  Future<BaseResponse> getEstimatedBook(
+      String author, int page, int size) async {
+    final res = await _apiClient.request(
+        basicAuthen: author,
+        queryParameters: {
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        },
+        path: ApiConstants.estimatedBook,
+        method: NetworkMethod.get);
+    return res;
+  }
+
+  Future<BaseResponse> getEstimateReturnBook(
+      String author, int page, int size) async {
+    final res = await _apiClient.request(
+        basicAuthen: author,
+        queryParameters: {
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        },
+        path: ApiConstants.estimateReturnedDate,
+        method: NetworkMethod.get);
     return res;
   }
 }

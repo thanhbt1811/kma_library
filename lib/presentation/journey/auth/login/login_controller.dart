@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/constants/constants_export.dart';
@@ -30,6 +32,7 @@ class LoginController extends CoreController {
     if (response != null) {
       final appController = Get.find<AppController>();
       appController.user = response;
+      log('app user: ${appController.user.name}');
       Get.toNamed(AppRoutes.main);
     }
     rxLoadedType.value = LoadedType.finish;

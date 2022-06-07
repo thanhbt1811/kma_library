@@ -150,4 +150,38 @@ class BookUsecase {
         context);
     return res.result ?? false;
   }
+
+  Future<List<HireModel>> getEstimatedBook(
+      BuildContext context, int page, int size) async {
+    final hireList = <HireModel>[];
+    final res = await requestApi(
+        () =>
+            _bookRepository.getEstimatedBook(SessionData.authToken, page, size),
+        context);
+    if (res.result ?? false) {
+      for (final data in res.data['data']) {
+        hireList.add(
+          HireModel.fromJson(data),
+        );
+      }
+    }
+    return hireList;
+  }
+
+  Future<List<HireModel>> getEstimateReturnBook(
+      BuildContext context, int page, int size) async {
+    final hireList = <HireModel>[];
+    final res = await requestApi(
+        () => _bookRepository.getEstimateReturnBook(
+            SessionData.authToken, page, size),
+        context);
+    if (res.result ?? false) {
+      for (final data in res.data['data']) {
+        hireList.add(
+          HireModel.fromJson(data),
+        );
+      }
+    }
+    return hireList;
+  }
 }

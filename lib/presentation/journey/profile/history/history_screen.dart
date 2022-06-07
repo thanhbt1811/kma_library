@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
@@ -55,7 +53,7 @@ class HistoryScreen extends GetView<HistoryController> {
             padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16),
             child: Obx(
               () => AppButton(
-                title: 'Đặt lịch',
+                title: 'Đặt lịch trả sách',
                 loaded: controller.rxLoadedType.value,
                 onPressed: controller.returnedBookId.isNotEmpty
                     ? () => _returnBook(context)

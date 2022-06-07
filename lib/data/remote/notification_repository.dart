@@ -25,4 +25,14 @@ class NotificationRepository {
         method: NetworkMethod.delete,
         basicAuthen: author);
   }
+
+  Future<BaseResponse> getNew(int page, int size) async {
+    return _apiClient.request(
+        path: ApiConstants.newNoti,
+        method: NetworkMethod.get,
+        queryParameters: {
+          ArgumentConstants.pageSize: size,
+          ArgumentConstants.pageNumber: page
+        });
+  }
 }

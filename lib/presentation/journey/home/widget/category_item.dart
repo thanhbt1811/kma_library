@@ -22,12 +22,15 @@ class CategoryItem extends StatelessWidget {
           ),
         ),
         padding: EdgeInsets.all(AppDimens.space_12),
-        child: AppImageWidget(
-          fit: BoxFit.cover,
+        child: Container(
           height: 155.h,
-          isBorder: true,
           width: double.infinity,
-          path: category.thumbnail,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(ImageConstants.icDefaultCategory)),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(AppDimens.radius_15))),
           child: Padding(
             padding: EdgeInsets.all(AppDimens.space_12),
             child: Column(
