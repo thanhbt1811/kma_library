@@ -23,6 +23,7 @@ import 'package:getx_base_code/presentation/journey/auth/news/news_controller.da
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/read_book/read_book_controller.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_controller.dart';
+import 'package:getx_base_code/presentation/journey/home/category/category_controller.dart';
 import 'package:getx_base_code/presentation/journey/home/home_controller.dart';
 import 'package:getx_base_code/presentation/journey/main/main_controller.dart';
 import 'package:getx_base_code/presentation/journey/notification/notification_controller.dart';
@@ -85,6 +86,9 @@ void configLocator() {
   );
   getIt.registerFactory<NewsBindings>(
     () => NewsBindings(),
+  );
+  getIt.registerFactory<CategoryBindings>(
+    () => CategoryBindings(),
   );
 
   /// Controllers
@@ -169,6 +173,11 @@ void configLocator() {
   getIt.registerFactory<NewsController>(
     () => NewsController(
       getIt<NotificationUsecase>(),
+    ),
+  );
+  getIt.registerFactory<CategoryController>(
+    () => CategoryController(
+      getIt<CategoryUsecase>(),
     ),
   );
 

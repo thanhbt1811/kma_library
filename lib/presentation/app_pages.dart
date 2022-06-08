@@ -24,7 +24,7 @@ List<GetPage> myPages = [
       binding: SplashBinding()),
   GetPage(name: AppRoutes.main, page: () => const MainScreen(), bindings: [
     MainBinding(),
-    HomeBinding(),
+    CategoryBindings(),
     NotificationBinding(),
     CartBinding(),
     ProfileBinding(),

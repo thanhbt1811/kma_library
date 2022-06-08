@@ -7,7 +7,7 @@ import 'package:getx_base_code/presentation/journey/book/read_book/read_book_con
 class BookListBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(getIt<BookListController>());
+    Get.lazyReplace(() => getIt<BookListController>());
   }
 }
 

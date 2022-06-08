@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_screen.dart';
-import 'package:getx_base_code/presentation/journey/home/home_screen.dart';
+import 'package:getx_base_code/presentation/journey/home/category/category_screen.dart';
 import 'package:getx_base_code/presentation/journey/notification/notification_screen.dart';
 import 'package:getx_base_code/presentation/journey/profile/profile_screen.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
@@ -88,7 +88,7 @@ class MainScreen extends GetView<MainController> {
   Widget build(BuildContext context) {
     controller.context = context;
     final List<Widget> pages = [
-      const HomeScreen(),
+      const CategoryScreen(),
       const NotificationScreen(),
       const CartScreen(),
       const ProfileScreen()

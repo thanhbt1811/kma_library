@@ -157,4 +157,14 @@ class BookRepository {
         method: NetworkMethod.get);
     return res;
   }
+
+  Future<BaseResponse> deleteBookFromCart(
+      String author, List<String> idList) async {
+    final res = await _apiClient.request(
+        path: ApiConstants.rejectHiringSchedule,
+        data: jsonEncode(idList),
+        method: NetworkMethod.delete,
+        basicAuthen: author);
+    return res;
+  }
 }

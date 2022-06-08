@@ -8,3 +8,5 @@ enum ErrorEnum {
   unauthorized,
 }
 enum Calender { morning, afternoon }
+
+enum BottomNavigationType { home, noti, cart, profile }

@@ -40,7 +40,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
                   ),
                   AppTouchable(
                     onPressed:
-                        controller.book.value.categoryCode == 'Schthamkho'
+                        controller.book.value.categoryCode == 'Sách tham khảo'
                             ? () {
                                 Get.toNamed(AppRoutes.overViewBook, arguments: {
                                   ArgumentConstants.book: controller.book.value

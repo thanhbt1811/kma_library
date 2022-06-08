@@ -85,12 +85,31 @@ class CartScreen extends GetView<CartController> {
               ),
             ),
             Obx(
-              () => AppButton(
-                title: 'Đặt lịch',
-                loaded: controller.rxLoadedType.value,
-                onPressed: controller.hireList.isNotEmpty
-                    ? () => _hiringBook(context)
-                    : null,
+              () => Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      title: 'Đặt lịch',
+                      loaded: controller.rxLoadedType.value,
+                      onPressed: controller.hireList.isNotEmpty
+                          ? () => _hiringBook(context)
+                          : null,
+                    ),
+                  ),
+                  SizedBox(
+                    width: AppDimens.width_12,
+                  ),
+                  Expanded(
+                    child: AppButton(
+                      title: 'Xóa',
+                      loaded: controller.deleteLoaded.value,
+                      onPressed: controller.hireList.isNotEmpty
+                          ? controller.deleteBook
+                          : null,
+                      backgroundColor: AppColors.red,
+                    ),
+                  )
+                ],
               ),
             ),
             SizedBox(

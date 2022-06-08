@@ -5,7 +5,7 @@ class ArgumentConstants {
   static const String pageSize = 'pageSize';
   static const String pageNumber = 'pageNumber';
   static const String id = 'id';
-  static const String categoryId = 'category_id';
+  static const String categoryId = 'categoryId';
   static const String categoryName = 'category_Name';
   static const String book = 'book';
   static const String bookId = 'bookId';

@@ -184,4 +184,12 @@ class BookUsecase {
     }
     return hireList;
   }
+
+  Future<bool> deleteBookFromCart(
+      BuildContext context, List<String> idList) async {
+    final res = await requestApi(
+        () => _bookRepository.deleteBookFromCart(SessionData.authToken, idList),
+        context);
+    return res.result ?? false;
+  }
 }
