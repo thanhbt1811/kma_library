@@ -39,34 +39,37 @@ class ProfileScreen extends GetView<ProfileController> {
                     children: [
                       MenuItemWidget(
                         title: 'Trang cá nhân',
-                        onTap: () => Get.toNamed(
-                          AppRoutes.myProfiel,
-                        ),
+                        onTap: () => Get.toNamed(AppRoutes.myProfiel,
+                            id: BottomNavigationType.profile.index),
                       ),
                       const Divider(
                         height: 1,
                       ),
                       MenuItemWidget(
                           title: 'Sách đang mượn',
-                          onTap: () => Get.toNamed(AppRoutes.history)),
+                          onTap: () => Get.toNamed(AppRoutes.history,
+                              id: BottomNavigationType.profile.index)),
                       const Divider(
                         height: 1,
                       ),
                       MenuItemWidget(
                           title: 'Sách đã trả',
-                          onTap: () => Get.toNamed(AppRoutes.historyOrder)),
+                          onTap: () => Get.toNamed(AppRoutes.historyOrder,
+                              id: BottomNavigationType.profile.index)),
                       const Divider(
                         height: 1,
                       ),
                       MenuItemWidget(
                           title: 'Sách đang chờ mượn',
-                          onTap: () => Get.toNamed(AppRoutes.estimatingBook)),
+                          onTap: () => Get.toNamed(AppRoutes.estimatingBook,
+                              id: BottomNavigationType.profile.index)),
                       const Divider(
                         height: 1,
                       ),
                       MenuItemWidget(
                           title: 'Sách đang chờ trả',
-                          onTap: () => Get.toNamed(AppRoutes.estimateReturn)),
+                          onTap: () => Get.toNamed(AppRoutes.estimateReturn,
+                              id: BottomNavigationType.profile.index)),
                       const Divider(
                         height: 1,
                       ),

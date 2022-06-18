@@ -21,35 +21,10 @@ class LoginScreen extends GetView<LoginController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Stack(
-                  children: [
-                    SafeArea(
-                        child: Align(
-                            alignment: Alignment.center,
-                            child:
-                                AppImageWidget(path: ImageConstants.kmaLogo))),
-                    Container(
-                      padding: EdgeInsets.only(
-                          right: AppDimens.width_16, top: AppDimens.height_24),
-                      alignment: Alignment.topRight,
-                      child: AppTouchable(
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.news);
-                        },
-                        outlinedBorder: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0),
-                        ),
-                        padding: EdgeInsets.only(top: AppDimens.height_16),
-                        width: AppDimens.width_40,
-                        height: AppDimens.width_40,
-                        child: AppImageWidget(
-                          path: ImageConstants.icBell,
-                          height: AppDimens.height_24,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                SafeArea(
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: AppImageWidget(path: ImageConstants.kmaLogo))),
                 Text(
                   'Thư viện KMA',
                   style: ThemeText.headline3.copyWith(

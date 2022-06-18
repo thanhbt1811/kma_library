@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/journey/home/category/category_controller.dart';
 import 'package:getx_base_code/presentation/journey/home/category/widget/category_item.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
@@ -12,7 +13,8 @@ import 'package:getx_base_code/presentation/widgets/export.dart';
 import 'package:getx_base_code/presentation/widgets/list_shimmer/list_shimmer_widget.dart';
 
 class CategoryScreen extends GetView<CategoryController> {
-  const CategoryScreen({Key? key}) : super(key: key);
+  final _appController = Get.find<AppController>();
+  CategoryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,14 @@ class CategoryScreen extends GetView<CategoryController> {
           style: ThemeText.headline6
               .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
           textAlign: TextAlign.left,
+        ),
+        action: Padding(
+          padding: EdgeInsets.only(right: AppDimens.width_16),
+          child: Text(
+            'Chào, ${_appController.user.name.name}!',
+            style: ThemeText.headline6
+                .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
+          ),
         ),
       ),
       body: Padding(
@@ -105,13 +115,12 @@ class CategoryScreen extends GetView<CategoryController> {
             return CategoryItem(
               category: category,
               onTap: () {
-                Get.toNamed(
-                  AppRoutes.bookList,
-                  arguments: {
-                    ArgumentConstants.categoryId: category.id,
-                    ArgumentConstants.categoryName: category.categoryName
-                  },
-                );
+                Get.toNamed(AppRoutes.bookList,
+                    arguments: {
+                      ArgumentConstants.categoryId: category.id,
+                      ArgumentConstants.categoryName: category.categoryName
+                    },
+                    id: BottomNavigationType.home.index);
               },
             );
           }),

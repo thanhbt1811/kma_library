@@ -26,7 +26,7 @@ class MyProfileScreen extends GetView<MyProfileController> {
         ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
-          onTap: () => Get.back(),
+          onTap: () => Get.back(id: BottomNavigationType.profile.index),
         ),
       ),
       body: Stack(

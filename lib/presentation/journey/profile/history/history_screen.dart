@@ -29,7 +29,7 @@ class HistoryScreen extends GetView<HistoryController> {
         ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
-          onTap: () => Get.back(),
+          onTap: () => Get.back(id: BottomNavigationType.profile.index),
         ),
       ),
       backgroundColor: AppColors.white,

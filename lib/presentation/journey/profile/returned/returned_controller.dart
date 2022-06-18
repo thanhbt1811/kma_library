@@ -8,7 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class ReturnedController extends CoreController {
   final BookUsecase _bookUsecase;
   final RefreshController refreshController = RefreshController();
-  RxList<HireModel> hirings = <HireModel>[].obs;
+  RxMap<DateTime, List<HireModel>> hirings = <DateTime, List<HireModel>>{}.obs;
   final int _pageSize = 10;
   int _page = 0;
   RxBool hasLoadMore = true.obs;
@@ -31,7 +31,7 @@ class ReturnedController extends CoreController {
     if (!isLoadmore) {
       rxLoadedType.value = LoadedType.start;
     }
-    final res = await _bookUsecase.getReturned(context, _page, _pageSize);
+    final res = await _bookUsecase.getReturnedBook(context, _page, _pageSize);
     if (!isLoadmore) {
       rxLoadedType.value = LoadedType.finish;
     } else {

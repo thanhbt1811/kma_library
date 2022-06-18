@@ -17,9 +17,8 @@ class NotificationUsecase {
         () => _notificationRepository.getNotification(
             SessionData.authToken, page, size),
         context);
-    if ((res.result ?? false) && (res.code == 200)) {
-      final data = res.data;
-      for (final noti in data) {
+    if (res.result ?? false) {
+      for (final noti in res.data) {
         noties.add(
           NotificationModel.fromJson(noti),
         );

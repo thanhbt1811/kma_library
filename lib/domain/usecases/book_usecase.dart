@@ -89,6 +89,39 @@ class BookUsecase {
     return returns;
   }
 
+  Future<Map<DateTime, List<HireModel>>> getReturnedBook(
+      BuildContext context, int page, int size) async {
+    final returns = <HireModel>[];
+    final res = await requestApi(
+        () =>
+            _bookRepository.getReturnedBook(SessionData.authToken, page, size),
+        context);
+    if (res.result ?? false) {
+      final data = res.data['data'];
+      for (final returnBokk in data) {
+        returns.add(
+          HireModel.fromJson(returnBokk),
+        );
+      }
+    }
+    final Map<DateTime, List<HireModel>> returnedMap =
+        <DateTime, List<HireModel>>{};
+    final itemDate = returns[0].returnedDate;
+    final date = DateTime(itemDate!.year, itemDate.month, itemDate.day);
+    returnedMap.putIfAbsent(date, () => [returns[0]]);
+    for (var index = 1; index < returns.length; index++) {
+      final book = returns[index];
+      final bookDate = DateTime(book.returnedDate!.year,
+          book.returnedDate!.month, book.returnedDate!.day);
+      if (bookDate == date) {
+        returnedMap[bookDate]?.add(book);
+      } else {
+        returnedMap.putIfAbsent(bookDate, () => [book]);
+      }
+    }
+    return returnedMap;
+  }
+
   Future<List<BookModel>> getBookInTerm(
       BuildContext context, int term, int page, int size) async {
     final books = <BookModel>[];

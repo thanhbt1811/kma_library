@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
+import 'package:getx_base_code/presentation/journey/account/account_screen.dart';
 import 'package:getx_base_code/presentation/journey/cart/cart_screen.dart';
-import 'package:getx_base_code/presentation/journey/home/category/category_screen.dart';
+import 'package:getx_base_code/presentation/journey/home/home_screen.dart';
 import 'package:getx_base_code/presentation/journey/notification/notification_screen.dart';
-import 'package:getx_base_code/presentation/journey/profile/profile_screen.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/export.dart';
 
@@ -88,16 +88,22 @@ class MainScreen extends GetView<MainController> {
   Widget build(BuildContext context) {
     controller.context = context;
     final List<Widget> pages = [
-      const CategoryScreen(),
+      const HomeScreen(),
       const NotificationScreen(),
       const CartScreen(),
-      const ProfileScreen()
+      const AccountScreen()
     ];
 
-    return Scaffold(
-      backgroundColor: AppColors.grey100,
-      body: Obx(() => pages[controller.rxCurrentNavIndex.value]),
-      bottomNavigationBar: _buildBottomNavigationBar(context),
+    return WillPopScope(
+      onWillPop: () async {
+        Get.back(id: controller.rxCurrentNavIndex.value);
+        return false;
+      },
+      child: Scaffold(
+        backgroundColor: AppColors.grey100,
+        body: Obx(() => pages[controller.rxCurrentNavIndex.value]),
+        bottomNavigationBar: _buildBottomNavigationBar(context),
+      ),
     );
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/presentation/journey/profile/returned/returned_controller.dart';
-import 'package:getx_base_code/presentation/journey/profile/returned/widget/returned_item.dart';
+import 'package:getx_base_code/presentation/journey/profile/returned/widget/returned_group_widget.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_refresh_widget.dart';
@@ -30,7 +30,7 @@ class ReturnedScreen extends GetView<ReturnedController> {
         ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
-          onTap: () => Get.back(),
+          onTap: () => Get.back(id: BottomNavigationType.profile.index),
         ),
       ),
       backgroundColor: AppColors.white,
@@ -55,20 +55,20 @@ class ReturnedScreen extends GetView<ReturnedController> {
     } else if (controller.hirings.isEmpty) {
       return const Center(child: AppEmptyWidget());
     } else {
-      final hires = controller.hirings;
+      final returnedDates = controller.hirings.keys.toList();
       return ListView.separated(
           padding: EdgeInsets.symmetric(
               horizontal: AppDimens.width_16, vertical: AppDimens.height_16),
           itemBuilder: (context, index) {
-            final hire = hires[index];
-            return ReturnedItem(
-              hire: hire,
-            );
+            final returnedDate = returnedDates[index];
+            final returnedList = controller.hirings[returnedDate];
+            return ReturnedGroupWidget(
+                returnedDate: returnedDate, returnedList: returnedList ?? []);
           },
           separatorBuilder: (context, index) => SizedBox(
                 height: AppDimens.height_16,
               ),
-          itemCount: hires.length);
+          itemCount: returnedDates.length);
     }
   }
 }

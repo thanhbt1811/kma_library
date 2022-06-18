@@ -25,7 +25,7 @@ class BookDetailScreen extends GetView<BookDetailController> {
         ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
-          onTap: () => Get.back(),
+          onTap: () => Get.back(id: BottomNavigationType.home.index),
         ),
       ),
       body: Padding(
@@ -39,14 +39,16 @@ class BookDetailScreen extends GetView<BookDetailController> {
                     height: AppDimens.height_16,
                   ),
                   AppTouchable(
-                    onPressed:
-                        controller.book.value.categoryCode == 'Sách tham khảo'
-                            ? () {
-                                Get.toNamed(AppRoutes.overViewBook, arguments: {
+                    onPressed: controller.book.value.categoryCode ==
+                            'Sách tham khảo'
+                        ? () {
+                            Get.toNamed(AppRoutes.overViewBook,
+                                arguments: {
                                   ArgumentConstants.book: controller.book.value
-                                });
-                              }
-                            : null,
+                                },
+                                id: BottomNavigationType.home.index);
+                          }
+                        : null,
                     child: AppImageWidget(
                       path: controller.book.value.thumbnail,
                       height: MediaQuery.of(context).size.height * 0.3,
@@ -151,10 +153,9 @@ class BookDetailScreen extends GetView<BookDetailController> {
                                       book.obs,
                                     );
                                     Get.lazyReplace(() => newController);
-                                    Get.to(
-                                      const BookDetailScreen(),
-                                      preventDuplicates: false,
-                                    );
+                                    Get.to(const BookDetailScreen(),
+                                        preventDuplicates: false,
+                                        id: BottomNavigationType.home.index);
                                   },
                                   padding: EdgeInsets.symmetric(
                                       horizontal: AppDimens.width_12),
@@ -190,14 +191,17 @@ class BookDetailScreen extends GetView<BookDetailController> {
                 ],
               ),
             ),
-            Obx(
-              () => AppButton(
-                title: 'Mượn sách',
-                loaded: controller.rxLoadedType.value,
-                onPressed:
-                    controller.activeButton.value ? controller.addToCart : null,
-              ),
-            ),
+            controller.book.value.categoryCode != 'Sách tham khảo'
+                ? Obx(
+                    () => AppButton(
+                      title: 'Mượn sách',
+                      loaded: controller.rxLoadedType.value,
+                      onPressed: controller.activeButton.value
+                          ? controller.addToCart
+                          : null,
+                    ),
+                  )
+                : const SizedBox.shrink(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             )

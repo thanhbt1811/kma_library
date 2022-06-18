@@ -8,6 +8,7 @@ class AppRoutes {
   static const String forgotPassword = '/auth/forgot_password';
 
   ///Profile
+  static const String profile = '/profile';
   static const String changePassword = '/profile/change_password';
   static const String historyOrder = '/profile/history_order';
   static const String history = '/profile/history';

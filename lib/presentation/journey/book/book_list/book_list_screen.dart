@@ -35,7 +35,7 @@ class BookListScreen extends GetView<BookListController> {
         ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
-          onTap: () => Get.back(),
+          onTap: () => Get.back(id: BottomNavigationType.home.index),
         ),
       ),
       backgroundColor: AppColors.white,
@@ -104,10 +104,9 @@ class BookListScreen extends GetView<BookListController> {
                   book.obs,
                 );
                 Get.lazyReplace(() => newController);
-                Get.to(
-                  const BookDetailScreen(),
-                  preventDuplicates: false,
-                );
+                Get.to(const BookDetailScreen(),
+                    preventDuplicates: false,
+                    id: BottomNavigationType.home.index);
               },
             );
           }),

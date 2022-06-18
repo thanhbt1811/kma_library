@@ -6,4 +6,9 @@ extension StringExtensions on String {
     }
     return replaceAll('.', '').replaceAll(' ₫', '');
   }
+
+  String get name {
+    List<String> names = split(" ");
+    return names.last;
+  }
 }

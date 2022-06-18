@@ -4,6 +4,7 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/common/injector/bindings/book_bindings.dart';
 import 'package:getx_base_code/presentation/journey/book/book_detail/book_detail_screen.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_screen.dart';
+import 'package:getx_base_code/presentation/journey/book/read_book/read_book_screen.dart';
 import 'package:getx_base_code/presentation/journey/home/category/category_screen.dart';
 import 'package:getx_base_code/presentation/journey/home/home_controller.dart';
 
@@ -16,9 +17,9 @@ class HomeScreen extends StatelessWidget {
     return Navigator(
       key: Get.nestedKey(BottomNavigationType.home.index),
       onGenerateRoute: (settings) {
+        Get.routing.args = settings.arguments;
         switch (settings.name) {
           case AppRoutes.bookList:
-            final arg = settings.arguments as Map<String, dynamic>?;
             return GetPageRoute(
               settings: settings,
               routeName: AppRoutes.bookList,
@@ -32,11 +33,17 @@ class HomeScreen extends StatelessWidget {
               page: () => const BookDetailScreen(),
               binding: BookDetailBinding(),
             );
+          case AppRoutes.overViewBook:
+            return GetPageRoute(
+                settings: settings,
+                routeName: AppRoutes.overViewBook,
+                page: () => const ReadBookScreen(),
+                binding: ReadBookBinding());
           default:
             return GetPageRoute(
               settings: settings,
               routeName: AppRoutes.home,
-              page: () => const CategoryScreen(),
+              page: () => CategoryScreen(),
               binding: CategoryBindings(),
             );
         }

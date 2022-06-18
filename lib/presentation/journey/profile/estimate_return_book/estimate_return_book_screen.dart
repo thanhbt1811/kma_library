@@ -28,7 +28,7 @@ class EstimateReturnBookScreen extends GetView<EstimateReturnBookController> {
         ),
         leading: AppBarButton(
           iconSource: ImageConstants.icArrowLeft,
-          onTap: () => Get.back(),
+          onTap: () => Get.back(id: BottomNavigationType.profile.index),
         ),
       ),
       backgroundColor: AppColors.white,

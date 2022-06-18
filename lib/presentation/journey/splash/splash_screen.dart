@@ -55,7 +55,28 @@ class SplashScreen extends GetView<SplashController> {
                 ),
               ),
             ),
-          )
+          ),
+          Container(
+            padding: EdgeInsets.only(
+                right: AppDimens.width_16, top: AppDimens.height_24),
+            alignment: Alignment.topRight,
+            child: AppTouchable(
+              onPressed: () {
+                Get.toNamed(AppRoutes.news);
+              },
+              outlinedBorder: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+              padding: EdgeInsets.only(top: AppDimens.height_16),
+              width: AppDimens.width_40,
+              height: AppDimens.width_40,
+              child: AppImageWidget(
+                path: ImageConstants.icBell,
+                color: AppColors.white,
+                height: AppDimens.height_24,
+              ),
+            ),
+          ),
         ],
       ),
     );
