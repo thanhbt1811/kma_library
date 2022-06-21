@@ -7,8 +7,8 @@ class AppColors {
   static Color hintText = grey;
   static Color? background = AppColors.white;
 
-  static Color? blue = Colors.blue;
-  static Color? blue800 = Colors.blue[800];
+  static Color blue = Colors.blue;
+  static const Color blue800 = Color(0xFF1565C0);
   static Color? green50 = Colors.green[50];
   static const Color green = Colors.green;
   static const Color greenAccent = Color(0xFF00BA50);

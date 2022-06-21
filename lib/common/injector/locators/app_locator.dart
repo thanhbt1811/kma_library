@@ -19,6 +19,7 @@ import 'package:getx_base_code/domain/usecases/user_usecase.dart';
 import 'package:getx_base_code/presentation/controllers/app_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/forgot_password/forgot_password_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/login/login_controller.dart';
+import 'package:getx_base_code/presentation/journey/auth/news/new_detail/new_detail_controller.dart';
 import 'package:getx_base_code/presentation/journey/auth/news/news_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/book_list/book_list_controller.dart';
 import 'package:getx_base_code/presentation/journey/book/read_book/read_book_controller.dart';
@@ -86,6 +87,9 @@ void configLocator() {
   );
   getIt.registerFactory<NewsBindings>(
     () => NewsBindings(),
+  );
+  getIt.registerFactory<NewsDetailBindings>(
+    () => NewsDetailBindings(),
   );
   getIt.registerFactory<CategoryBindings>(
     () => CategoryBindings(),
@@ -174,6 +178,9 @@ void configLocator() {
     () => NewsController(
       getIt<NotificationUsecase>(),
     ),
+  );
+  getIt.registerFactory<NewDetailController>(
+    () => NewDetailController(),
   );
   getIt.registerFactory<CategoryController>(
     () => CategoryController(

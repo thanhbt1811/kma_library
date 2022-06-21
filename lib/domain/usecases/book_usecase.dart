@@ -54,7 +54,7 @@ class BookUsecase {
     return books;
   }
 
-  Future<List<HireModel>> getHiringBook(
+  Future<Map<DateTime, List<HireModel>>> getHiringBook(
       BuildContext context, int page, int size) async {
     final hires = <HireModel>[];
     final res = await requestApi(
@@ -68,7 +68,22 @@ class BookUsecase {
         );
       }
     }
-    return hires;
+    final Map<DateTime, List<HireModel>> hireMap =
+        <DateTime, List<HireModel>>{};
+    final itemDate = hires[0].hiredFrom;
+    final date = DateTime(itemDate!.year, itemDate.month, itemDate.day);
+    hireMap.putIfAbsent(date, () => [hires[0]]);
+    for (var index = 1; index < hires.length; index++) {
+      final book = hires[index];
+      final bookDate = DateTime(
+          book.hiredFrom!.year, book.hiredFrom!.month, book.hiredFrom!.day);
+      if (bookDate == date) {
+        hireMap[bookDate]?.add(book);
+      } else {
+        hireMap.putIfAbsent(bookDate, () => [book]);
+      }
+    }
+    return hireMap;
   }
 
   Future<List<HireModel>> getReturned(

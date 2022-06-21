@@ -10,13 +10,14 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class HistoryController extends CoreController {
   final BookUsecase _bookUsecase;
   final RefreshController refreshController = RefreshController();
-  RxList<HireModel> hirings = <HireModel>[].obs;
+  RxMap<DateTime, List<HireModel>> hirings = <DateTime, List<HireModel>>{}.obs;
   RxList<String> returnedBookId = <String>[].obs;
   Rx<Calender> rxCalender = Calender.morning.obs;
   Rx<DateTime> rxDate = DateTime.now().obs;
   final int _pageSize = 10;
   int _page = 0;
   RxBool hasLoadMore = true.obs;
+  Rx<LoadedType> loadingEstimateReturn = LoadedType.finish.obs;
 
   HistoryController(this._bookUsecase);
 
@@ -73,7 +74,7 @@ class HistoryController extends CoreController {
   }
 
   Future<void> returnedBook() async {
-    startLoading();
+    loadingEstimateReturn.value = LoadedType.start;
     final date = rxDate.value;
     final estaimationHiredDate = DateTime(date.year, date.month, date.day,
         rxCalender.value.time.hour, rxCalender.value.time.minute);
@@ -84,6 +85,6 @@ class HistoryController extends CoreController {
       showTopSnackBar(context,
           message: 'Đặt lịch trả sách thành công', type: SnackBarType.done);
     }
-    finishLoading();
+    loadingEstimateReturn.value = LoadedType.finish;
   }
 }

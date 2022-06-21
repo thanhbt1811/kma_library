@@ -16,14 +16,16 @@ class HireWidget extends StatelessWidget {
   final Function(DateTime) onSelectDate;
   final DateTime currentDate;
   final Calender calender;
-  const HireWidget({
-    Key? key,
-    required this.onDone,
-    required this.onSelectCalender,
-    required this.onSelectDate,
-    required this.currentDate,
-    required this.calender,
-  }) : super(key: key);
+  final bool isReturned;
+  const HireWidget(
+      {Key? key,
+      required this.onDone,
+      required this.onSelectCalender,
+      required this.onSelectDate,
+      required this.currentDate,
+      required this.calender,
+      this.isReturned = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +105,7 @@ class HireWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: AppButton.flexWidth(
-                      title: 'Đặt mượn',
+                      title: isReturned ? 'Đặt trả' : 'Đặt mượn',
                       onPressed: onDone,
                       width: width,
                     ),

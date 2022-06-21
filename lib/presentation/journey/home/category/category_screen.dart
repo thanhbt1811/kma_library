@@ -122,6 +122,8 @@ class CategoryScreen extends GetView<CategoryController> {
                     },
                     id: BottomNavigationType.home.index);
               },
+              background:
+                  index == 0 ? AppColors.blue800 : AppColors.greenAccent900,
             );
           }),
         );

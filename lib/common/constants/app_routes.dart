@@ -6,6 +6,8 @@ class AppRoutes {
   ///Authentication
   static const String login = '/auth/login';
   static const String forgotPassword = '/auth/forgot_password';
+  static const String news = '/news';
+  static const String newsDetail = '/new/detail';
 
   ///Profile
   static const String profile = '/profile';
@@ -21,5 +23,4 @@ class AppRoutes {
   static const String bookDetail = '/book/detail';
   static const String bookSuggestion = '/book/suggestion';
   static const String overViewBook = '/book/overview';
-  static const String news = '/news';
 }

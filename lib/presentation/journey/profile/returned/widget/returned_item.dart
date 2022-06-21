@@ -30,10 +30,18 @@ class ReturnedItem extends StatelessWidget {
                 width: AppDimens.width_16,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     hire.title,
                     style: ThemeText.bodyText1,
+                  ),
+                  SizedBox(
+                    height: AppDimens.height_8,
+                  ),
+                  Text(
+                    'Ngày mượn: ${hire.hiredFrom != null ? dateFormatter(FormatConstants.formatddMMyyyyy, hire.hiredFrom!) : ""}',
+                    style: ThemeText.bodyText2.copyWith(color: AppColors.grey),
                   ),
                   SizedBox(
                     height: AppDimens.height_8,
@@ -52,7 +60,9 @@ class ReturnedItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              AppImageWidget(path: ImageConstants.icDone),
+              hire.isExpired ?? false
+                  ? AppImageWidget(path: ImageConstants.icDone)
+                  : AppImageWidget(path: ImageConstants.icCircleClose),
             ],
           ),
         ],

@@ -4,7 +4,7 @@ import 'package:getx_base_code/common/common_export.dart';
 import 'package:getx_base_code/common/utils/comon_utils.dart';
 import 'package:getx_base_code/presentation/journey/cart/widget/hire_widget.dart';
 import 'package:getx_base_code/presentation/journey/profile/history/history_controller.dart';
-import 'package:getx_base_code/presentation/journey/profile/history/widget/history_item.dart';
+import 'package:getx_base_code/presentation/journey/profile/history/widget/hire_group_widget.dart';
 import 'package:getx_base_code/presentation/theme/export.dart';
 import 'package:getx_base_code/presentation/widgets/app_empty_widget.dart';
 import 'package:getx_base_code/presentation/widgets/app_refresh_widget.dart';
@@ -54,7 +54,7 @@ class HistoryScreen extends GetView<HistoryController> {
             child: Obx(
               () => AppButton(
                 title: 'Đặt lịch trả sách',
-                loaded: controller.rxLoadedType.value,
+                loaded: controller.loadingEstimateReturn.value,
                 onPressed: controller.returnedBookId.isNotEmpty
                     ? () => _returnBook(context)
                     : null,
@@ -76,6 +76,7 @@ class HistoryScreen extends GetView<HistoryController> {
           () => HireWidget(
             calender: controller.rxCalender.value,
             currentDate: controller.rxDate.value,
+            isReturned: true,
             onDone: () {
               Get.back();
               controller.returnedBook();
@@ -96,24 +97,38 @@ class HistoryScreen extends GetView<HistoryController> {
     } else if (controller.hirings.isEmpty) {
       return const Center(child: AppEmptyWidget());
     } else {
-      final hires = controller.hirings;
+      final hires = controller.hirings.keys.toList();
       return ListView.separated(
           padding: EdgeInsets.symmetric(
               horizontal: AppDimens.width_16, vertical: AppDimens.height_16),
           itemBuilder: (context, index) {
-            final hire = hires[index];
-            return HistoryItem(
-              hire: hire,
-              onLongPress: (value) {
+            final hireDate = hires[index];
+            final hireList = controller.hirings[hireDate];
+            return HireGroupWidget(
+              hireDate: hireDate,
+              hireList: hireList ?? [],
+              currentLength: controller.returnedBookId.length,
+              errorMessage: "Chỉ có thể trả tối đa 7 quyển sách",
+              onLongPressed: (value, hire) {
                 if (value) {
                   controller.returnedBookId.add(hire.id);
                 } else {
                   controller.returnedBookId.remove(hire.id);
                 }
               },
-              currentLenght: controller.returnedBookId.length,
-              errorMessage: "Chỉ có thể trả tối đa 7 quyển sách",
             );
+            // return HistoryItem(
+            //   hire: hire,
+            //   onLongPress: (value) {
+            //     if (value) {
+            //       controller.returnedBookId.add(hire.id);
+            //     } else {
+            //       controller.returnedBookId.remove(hire.id);
+            //     }
+            //   },
+            //   currentLenght: controller.returnedBookId.length,
+            //   errorMessage: "Chỉ có thể trả tối đa 7 quyển sách",
+            // );
           },
           separatorBuilder: (context, index) => SizedBox(
                 height: AppDimens.height_16,

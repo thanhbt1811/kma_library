@@ -48,8 +48,8 @@ class MainScreen extends GetView<MainController> {
           ),
           border: Border.all(color: AppColors.galleryApprox, width: 3)),
       padding: EdgeInsets.symmetric(horizontal: AppDimens.width_16).copyWith(
-        top: AppDimens.height_16,
-        bottom: AppDimens.height_24,
+        top: AppDimens.height_8,
+        bottom: AppDimens.height_8,
       ),
       child: Obx(
         () => Row(

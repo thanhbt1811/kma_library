@@ -14,4 +14,5 @@ class ArgumentConstants {
   static const String term = 'term';
   static const String estaimatedHiredDate = "estaimatedHiredDate";
   static const String estaimatedReturnDate = "estaimatedReturnDate";
+  static const String newModel = 'newModel';
 }

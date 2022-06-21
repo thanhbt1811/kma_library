@@ -20,7 +20,7 @@ class NewsScreen extends GetView<NewsController> {
     return AppScaffold(
       appBar: AppBarWidget(
         title: Text(
-          'Thông báo',
+          'Bản tin',
           style: ThemeText.headline6
               .copyWith(fontSize: AppDimens.space_18, color: AppColors.white),
           textAlign: TextAlign.left,
