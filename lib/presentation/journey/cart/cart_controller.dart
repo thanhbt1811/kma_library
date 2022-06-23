@@ -20,6 +20,7 @@ class CartController extends CoreController {
   Rx<DateTime> hireDate = DateTime.now().obs;
   final RxList<String> hireList = <String>[].obs;
   final Rx<LoadedType> deleteLoaded = LoadedType.finish.obs;
+  final Rx<LoadedType> hireLoaded = LoadedType.finish.obs;
 
   CartController(this._bookUsecase);
 
@@ -90,7 +91,7 @@ class CartController extends CoreController {
   }
 
   Future<void> hireBook() async {
-    startLoading();
+    hireLoaded.value = LoadedType.start;
     final date = hireDate.value;
     final estaimationHiredDate = DateTime(date.year, date.month, date.day,
         rxCalender.value.time.hour, rxCalender.value.time.minute);
@@ -101,7 +102,7 @@ class CartController extends CoreController {
       showTopSnackBar(context,
           message: 'Đặt lịch mượn sách thành công', type: SnackBarType.done);
     }
-    finishLoading();
+    hireLoaded.value = LoadedType.finish;
   }
 
   Future<void> deleteBook() async {

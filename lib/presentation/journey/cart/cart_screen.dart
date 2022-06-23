@@ -90,7 +90,7 @@ class CartScreen extends GetView<CartController> {
                   Expanded(
                     child: AppButton(
                       title: 'Đặt lịch',
-                      loaded: controller.rxLoadedType.value,
+                      loaded: controller.hireLoaded.value,
                       onPressed: controller.hireList.isNotEmpty
                           ? () => _hiringBook(context)
                           : null,

@@ -1,3 +1,3 @@
 class NetworkConfig {
-  static String baseUrl = 'http://107.20.2.255/api/';
+  static String baseUrl = 'http://34.238.233.188/api/';
 }
