@@ -137,11 +137,11 @@ class MyProfileScreen extends GetView<MyProfileController> {
 
   void _onCamera() {
     controller.openCamera();
-    Get.back();
+    Get.back(id: BottomNavigationType.profile.index);
   }
 
   void _onGallery() {
     controller.openGallery();
-    Get.back();
+    Get.back(id: BottomNavigationType.profile.index);
   }
 }

@@ -30,11 +30,14 @@ class HireGroupWidget extends StatelessWidget {
           style: ThemeText.subtitle1,
         ),
         children: List.generate(hireList.length, (index) {
-          return HistoryItem(
-            hire: hireList[index],
-            onLongPress: (value) => onLongPressed(value, hireList[index]),
-            errorMessage: errorMessage,
-            currentLenght: currentLength,
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: AppDimens.height_4),
+            child: HistoryItem(
+              hire: hireList[index],
+              onLongPress: (value) => onLongPressed(value, hireList[index]),
+              errorMessage: errorMessage,
+              currentLenght: currentLength,
+            ),
           );
         }),
       ),

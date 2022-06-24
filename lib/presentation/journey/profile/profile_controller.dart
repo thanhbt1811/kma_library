@@ -38,6 +38,7 @@ class ProfileController extends CoreController {
           isCircleUi: true,
           image: image,
           onCrop: (image) async {
+            Get.back(id: BottomNavigationType.profile.index);
             final file =
                 await ImageCompress.compressedFileFunc(image, 'avatar.png');
             startLoading();
@@ -64,6 +65,7 @@ class ProfileController extends CoreController {
             isCircleUi: true,
             image: image,
             onCrop: (image) async {
+              Get.back(id: BottomNavigationType.profile.index);
               final file =
                   await ImageCompress.compressedFileFunc(image, 'avatar.png');
               startLoading();
@@ -73,6 +75,7 @@ class ProfileController extends CoreController {
                 Get.find<AppController>().user = res;
               }
               finishLoading();
+              Get.back(id: BottomNavigationType.profile.index);
             },
             width: 446,
             height: 446),

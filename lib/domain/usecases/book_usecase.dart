@@ -71,7 +71,7 @@ class BookUsecase {
     final Map<DateTime, List<HireModel>> hireMap =
         <DateTime, List<HireModel>>{};
     final itemDate = hires[0].hiredFrom;
-    final date = DateTime(itemDate!.year, itemDate.month, itemDate.day);
+    var date = DateTime(itemDate!.year, itemDate.month, itemDate.day);
     hireMap.putIfAbsent(date, () => [hires[0]]);
     for (var index = 1; index < hires.length; index++) {
       final book = hires[index];
@@ -80,7 +80,8 @@ class BookUsecase {
       if (bookDate == date) {
         hireMap[bookDate]?.add(book);
       } else {
-        hireMap.putIfAbsent(bookDate, () => [book]);
+        date = bookDate;
+        hireMap.putIfAbsent(date, () => [book]);
       }
     }
     return hireMap;
@@ -122,7 +123,7 @@ class BookUsecase {
     final Map<DateTime, List<HireModel>> returnedMap =
         <DateTime, List<HireModel>>{};
     final itemDate = returns[0].returnedDate;
-    final date = DateTime(itemDate!.year, itemDate.month, itemDate.day);
+    var date = DateTime(itemDate!.year, itemDate.month, itemDate.day);
     returnedMap.putIfAbsent(date, () => [returns[0]]);
     for (var index = 1; index < returns.length; index++) {
       final book = returns[index];
@@ -131,7 +132,8 @@ class BookUsecase {
       if (bookDate == date) {
         returnedMap[bookDate]?.add(book);
       } else {
-        returnedMap.putIfAbsent(bookDate, () => [book]);
+        date = bookDate;
+        returnedMap.putIfAbsent(date, () => [book]);
       }
     }
     return returnedMap;

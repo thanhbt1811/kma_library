@@ -6,7 +6,7 @@ void main() {
     final Map<DateTime, List<BookTest>> returnedMap =
         <DateTime, List<BookTest>>{};
     final itemDate = books[0].date;
-    final date = DateTime(itemDate.year, itemDate.month, itemDate.day);
+    var date = DateTime(itemDate.year, itemDate.month, itemDate.day);
     returnedMap.putIfAbsent(date, () => [books[0]]);
     for (var index = 1; index < books.length; index++) {
       final book = books[index];
@@ -14,14 +14,22 @@ void main() {
       if (bookDate == date) {
         returnedMap[bookDate]?.add(book);
       } else {
-        returnedMap.putIfAbsent(bookDate, () => [book]);
+        date = bookDate;
+        returnedMap.putIfAbsent(date, () => [book]);
       }
     }
     if (kDebugMode) {
       print('message');
     }
     if (kDebugMode) {
-      print('map: $returnedMap');
+      final keys = returnedMap.keys.toList();
+      for (final key in keys) {
+        print("date: $key");
+        final datas = returnedMap[key] ?? [];
+        for (final data in datas) {
+          print(data);
+        }
+      }
     }
   });
 }
@@ -35,7 +43,7 @@ class BookTest {
 
   @override
   String toString() {
-    return 'BookTest{id: $id, name: $name, date: $date}';
+    return 'BookTest{id: $id, name: $name, date: $date}\n';
   }
 }
 
@@ -49,7 +57,7 @@ final books = [
   BookTest(
     2,
     "TestCase2",
-    DateTime(now.year, now.month, now.day + 1),
+    DateTime.now(),
   ),
   BookTest(
     3,
@@ -59,17 +67,17 @@ final books = [
   BookTest(
     4,
     "TestCase4",
-    DateTime(now.year, now.month, now.day + 1),
+    DateTime.now(),
   ),
   BookTest(
     5,
     "TestCase5",
-    DateTime.now(),
+    DateTime(now.year, now.month, now.day + 1),
   ),
   BookTest(
     6,
     "TestCase6",
-    DateTime.now(),
+    DateTime(now.year, now.month, now.day + 1),
   ),
   BookTest(
     7,
@@ -79,6 +87,6 @@ final books = [
   BookTest(
     8,
     "TestCase8",
-    DateTime.now(),
+    DateTime(now.year, now.month, now.day + 2),
   ),
 ];

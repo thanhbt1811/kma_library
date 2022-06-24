@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:getx_base_code/common/constants/enums.dart';
 import 'package:getx_base_code/common/utils/comon_utils.dart';
 import 'package:getx_base_code/common/utils/image_compress.dart';
 import 'package:getx_base_code/domain/models/user_model.dart';
@@ -24,6 +25,7 @@ class MyProfileController extends CoreController {
           isCircleUi: true,
           image: image,
           onCrop: (image) async {
+            Get.back(id: BottomNavigationType.profile.index);
             final file =
                 await ImageCompress.compressedFileFunc(image, 'avatar.png');
             startLoading();
@@ -50,6 +52,7 @@ class MyProfileController extends CoreController {
             isCircleUi: true,
             image: image,
             onCrop: (image) async {
+              Get.back(id: BottomNavigationType.profile.index);
               final file =
                   await ImageCompress.compressedFileFunc(image, 'avatar.png');
               startLoading();

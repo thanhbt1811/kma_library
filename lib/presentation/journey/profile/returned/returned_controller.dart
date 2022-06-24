@@ -40,7 +40,15 @@ class ReturnedController extends CoreController {
 
     if (res.isNotEmpty) {
       if (isLoadmore) {
-        hirings.addAll(res);
+        var mergedMap = <DateTime, List<HireModel>>{};
+        for (var map in [hirings, res]) {
+          for (var entry in map.entries) {
+            // Add an empty `List` to `mergedMap` if the key doesn't already exist
+            // and then merge the `List`s.
+            (mergedMap[entry.key] ??= []).addAll(entry.value);
+          }
+        }
+        hirings.value = mergedMap;
       } else {
         hirings.value = res;
       }
